@@ -100,5 +100,20 @@
       loadMainDartJs();
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB71OAie3Z1ogkXHACQ31spGmAj4fLYbpc",
+      authDomain: "panda-flutter.firebaseapp.com",
+      projectId: "panda-flutter",
+      storageBucket: "panda-flutter.appspot.com",
+      messagingSenderId: "336220913037",
+      appId: "1:336220913037:web:d0dbfee275b1ccd49211c4",
+      measurementId: "G-3S2JZMM0F2"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
