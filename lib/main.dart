@@ -6,7 +6,7 @@ void main() => runApp(
         home: Scaffold(
           backgroundColor: Colors.blueGrey,
               appBar: AppBar(
-            title: Text('Test'),
+            title: Text('GitPushTest'),
       backgroundColor: Colors.blueGrey[900],
         ),
         )
