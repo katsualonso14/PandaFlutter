@@ -1,3 +1,4 @@
+// トーク画面
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/message.dart';
 import 'package:intl/intl.dart' as intl;

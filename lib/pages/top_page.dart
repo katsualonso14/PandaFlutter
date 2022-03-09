@@ -1,6 +1,7 @@
 //トークリスト
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/user.dart';
+import 'package:test_flutter/pages/setting.dart';
 import 'package:test_flutter/pages/talk_room.dart';
 
 class TopPage extends StatefulWidget {
@@ -15,6 +16,15 @@ class _TopPageState extends State<TopPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('ChatApp'),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.settings),
+            onPressed: () {
+                //画面遷移
+                Navigator.push(context, MaterialPageRoute(builder: (context) => settingPage()));
+            },
+          )
+        ],
       ),
       body: ListView.builder(
         //リストの数だけリストを表示する
