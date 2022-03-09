@@ -1,5 +1,7 @@
+//トークリスト
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/user.dart';
+import 'package:test_flutter/pages/talk_room.dart';
 
 class TopPage extends StatefulWidget {
   const TopPage({Key? key}) : super(key: key);
@@ -9,7 +11,53 @@ class TopPage extends StatefulWidget {
 }
 
 class _TopPageState extends State<TopPage> {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ChatApp'),
+      ),
+      body: ListView.builder(
+        //リストの数だけリストを表示する
+        itemCount: userList.length,
+        itemBuilder: (context, index) {
+          //タップしたら処理をできるような処理
+          return InkWell(
+            onTap: (){
+              //画面遷移
+              Navigator.push(context, MaterialPageRoute(builder: (context) => TalkRoom(userList[index].name)));
+            },
+            child: Container(
+              height: 70,
+              child: Row(
+                children: [
+                  //リストの中身
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    //アバターにユーザーリストのイメージを挿入
+                    child: CircleAvatar(backgroundImage: NetworkImage(userList[index].imagePath),
+                    radius: 30,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(userList[index].name, style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                      Text(userList[index].lastMessage, style: TextStyle(color: Colors.grey),),
+                    ]
+                  )
+
+                ],
+              ),
+            ),
+          );
+      },
+      ),
+    );
+  }
   @override
+
+  //ユーザー情報
   List<User> userList = [
     User(name: 'onii',
         uid: 'aaa',
@@ -22,11 +70,4 @@ class _TopPageState extends State<TopPage> {
         lastMessage: 'hello'
     ),
   ];
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ChatApp'),
-      ),
-    );
-  }
 }
