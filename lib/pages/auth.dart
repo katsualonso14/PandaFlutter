@@ -1,15 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:test_flutter/model/appuser.dart';
 import 'package:flutter/material.dart';
 
-Future<void> main() async {
-  // Firebase初期化
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
+// Future<void> main() async {
+//   // Firebase初期化
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
+class AuthPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -81,6 +80,14 @@ class _MyAuthPageState extends State<MyAuthPage> {
 
                     // 登録したユーザー情報
                     final User user = result.user!;
+                    // アプリのユーザー情報にも反映する
+                    final AppUser appuser = AppUser(
+                      name: "test_name",
+                      uid: "test_uid",
+                      imagePath: "test_imagePath",
+                      lastMessage: "test_lastMessage",
+                      email: user.email,
+                    );
                     setState(() {
                       infoText = "登録OK：${user.email}";
                     });
