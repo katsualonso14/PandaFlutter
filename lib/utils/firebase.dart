@@ -86,6 +86,7 @@ class Firestore {
                  return;
                }
              });
+             
 
              User yourProfile = (await getProfile(yourUid!)) as User;
 
