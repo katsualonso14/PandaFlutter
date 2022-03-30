@@ -7,10 +7,18 @@ import 'package:test_flutter/utils/shared_pref.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // await SharedPrefs.setInstance();
-  Firestore.addUser();
+  await SharedPrefs.setInstance();
+  checkAccount();
   runApp(myApp());
 
+}
+
+Future<void> checkAccount() async {
+  String uid = SharedPrefs.getUid();
+  //Uidが空の場合はユーザを新規追加
+  if(uid == '') {
+    Firestore.addUser();
+  }
 }
 
 class myApp extends StatelessWidget {

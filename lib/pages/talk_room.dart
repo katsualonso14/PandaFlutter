@@ -2,16 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/message.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:test_flutter/model/user.dart';
 
-class TalkRoom extends StatefulWidget {
-  final String name;
-  TalkRoom(this.name);
+class TalkRoomPage extends StatefulWidget {
+  final User talkUser;
+  TalkRoomPage(this.talkUser);
 
   @override
-  _TalkRoomState createState() => _TalkRoomState();
+  _TalkRoomPageState createState() => _TalkRoomPageState();
 }
 
-class _TalkRoomState extends State<TalkRoom> {
+class _TalkRoomPageState extends State<TalkRoomPage> {
   List<Message> messageList = [
   Message(message: 'sample',
       isMe: true,
@@ -102,7 +103,7 @@ class _TalkRoomState extends State<TalkRoom> {
       backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
         //タイトルにユーザ名を指定
-        title: Text(widget.name),
+        title: Text(widget.talkUser.name),
       ),
       body: Stack(
         children: [
