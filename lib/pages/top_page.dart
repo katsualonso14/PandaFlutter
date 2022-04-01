@@ -4,9 +4,10 @@ import 'package:test_flutter/model/talk_room.dart';
 import 'package:test_flutter/model/user.dart';
 import 'package:test_flutter/pages/setting.dart';
 import 'package:test_flutter/pages/talk_room.dart';
+import 'package:test_flutter/utils/firebase.dart';
 import 'package:test_flutter/utils/shared_pref.dart';
 
-import '../utils/firebase.dart';
+
 
 class TopPage extends StatefulWidget {
   const TopPage({Key? key}) : super(key: key);

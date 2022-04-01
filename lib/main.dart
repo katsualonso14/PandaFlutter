@@ -18,6 +18,8 @@ Future<void> checkAccount() async {
   //Uidが空の場合はユーザを新規追加
   if(uid == '') {
     Firestore.addUser();
+  } else {
+    Firestore.getRoom(uid);
   }
 }
 
