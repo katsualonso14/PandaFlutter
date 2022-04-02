@@ -2,11 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:test_flutter/model/appuser.dart';
 import 'package:flutter/material.dart';
-
-// Future<void> main() async {
-//   // Firebase初期化
-//   runApp(MyApp());
-// }
+import 'dart:html';
+import 'package:logging/logging.dart';
 
 class AuthPage extends StatelessWidget {
   // This widget is the root of your application.
@@ -88,8 +85,10 @@ class _MyAuthPageState extends State<MyAuthPage> {
                       lastMessage: "test_lastMessage",
                       email: user.email,
                     );
+                    print("hoge");
                     setState(() {
-                      infoText = "登録OK：${user.email}";
+                      // infoText = "登録OK：${user.email}";
+                      infoText = "登録OK：${appuser.name}";
                     });
                   } catch (e) {
                     // 登録に失敗した場合
