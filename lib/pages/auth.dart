@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:test_flutter/model/appuser.dart';
 import 'package:flutter/material.dart';
-import 'dart:html';
-import 'package:logging/logging.dart';
+import 'package:test_flutter/pages/setting.dart';
+import 'package:test_flutter/main.dart';
 
 class AuthPage extends StatelessWidget {
   // This widget is the root of your application.
@@ -15,6 +13,11 @@ class AuthPage extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyAuthPage(),
+      routes: <String, WidgetBuilder>{
+        '/home': (BuildContext context) => new MainPage(),
+        '/authpage': (BuildContext context) => new AuthPage(),
+        '/settingpage': (BuildContext context) => new SettingPage()
+      },
     );
   }
 }
@@ -77,19 +80,10 @@ class _MyAuthPageState extends State<MyAuthPage> {
 
                     // 登録したユーザー情報
                     final User user = result.user!;
-                    // アプリのユーザー情報にも反映する
-                    final AppUser appuser = AppUser(
-                      name: "test_name",
-                      uid: "test_uid",
-                      imagePath: "test_imagePath",
-                      lastMessage: "test_lastMessage",
-                      email: user.email,
-                    );
-                    print("hoge");
                     setState(() {
-                      // infoText = "登録OK：${user.email}";
-                      infoText = "登録OK：${appuser.name}";
+                      infoText = "登録OK：${user.email}";
                     });
+                    Navigator.of(context).pushNamed("/settingpage");
                   } catch (e) {
                     // 登録に失敗した場合
                     setState(() {
@@ -133,6 +127,7 @@ class _MyAuthPageState extends State<MyAuthPage> {
                     setState(() {
                       infoText = "ログインOK：${user.email}";
                     });
+                    Navigator.of(context).pushNamed("/settingpage");
                   } catch (e) {
                     // ログインに失敗した場合
                     setState(() {
