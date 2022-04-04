@@ -2,6 +2,7 @@
 import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test_flutter/model/message.dart';
 import 'package:test_flutter/model/talk_room.dart';
 import 'package:test_flutter/model/user.dart';
 import 'package:test_flutter/utils/shared_pref.dart';
@@ -49,7 +50,6 @@ class Firestore {
       List<String> userIds = [];
       snapshot.docs.forEach((user) {
         userIds.add(user.id);
-        print('${user.id}  ${user.data()['image_path']}');
       });
 
       return userIds;
@@ -78,7 +78,6 @@ class Firestore {
     List<TalkRoom> roomList = [];
    //肩を明示的に宣言する必要がある　nullエラーになるため
     await Future.forEach<QueryDocumentSnapshot<Map<String, dynamic>>>(snapshot.docs, (doc) async {
-      print(doc.data()['joined_user_ids']);
            if(doc.data()['joined_user_ids'].contains(myUid)) {
              //相手のID
              String? yourUid;
@@ -102,5 +101,51 @@ class Firestore {
     });
     print(roomList.length);
     return roomList;
+  }
+
+  static Future<List<Message>> getMessage(String roomId) async{
+     final messageRef = roomReference.doc(roomId).collection('message');
+     List<Message> messageList = [];
+
+     final snapshot = await messageRef.get();
+
+     await Future.forEach<QueryDocumentSnapshot<Map<String, dynamic>>>(snapshot.docs, (doc){
+       bool isMe;
+       String myUid = SharedPrefs.getUid();
+
+       if(doc.data()['sender_id'] == myUid) {
+         isMe = true;
+       } else {
+         isMe = false;
+       }
+
+       Message message = Message(
+           message: doc.data()['message'],
+           isMe: isMe,
+           sendTime: doc.data()['send_time'],
+       );
+       messageList.add(message);
+     });
+     //時間を順に並べる
+     messageList.sort((a,b) => b.sendTime.compareTo(a.sendTime));
+     return messageList;
+  }
+  //メッセージ送信
+  static Future<void> sendMessage(String roomId, String message) async {
+    final messageRef = roomReference.doc(roomId).collection('message');
+    String myUid = SharedPrefs.getUid();
+    await messageRef.add({
+      'message': message,
+      'sender_id': myUid,
+      'send_time': Timestamp.now()
+    });
+
+    roomReference.doc(roomId).update({
+      'last_message': message
+    });
+  }
+
+  static Stream<QuerySnapshot> messageSnapshot(String roomId) {
+    return roomReference.doc(roomId).collection('message').snapshots();
   }
 }
