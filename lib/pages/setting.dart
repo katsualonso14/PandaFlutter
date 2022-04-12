@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_form_field/image_form_field.dart';
@@ -6,15 +7,18 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import 'upload_button.dart';
 import 'image_input_adapter.dart';
+import 'dart:developer';
 
 import 'package:test_flutter/model/appuser.dart';
 
 class SettingPage extends StatelessWidget {
+  const SettingPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: const Text('Upload Images')),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         // Provide existing images as the first argument
         child: SettingForm(<BlogImage>[]),
       ),
@@ -61,7 +65,6 @@ class BlogImage {
         id: images.docs.first.id,
       );
     }
-
     return null;
   }
 
@@ -72,7 +75,7 @@ class BlogImage {
 }
 
 class SettingForm extends StatefulWidget {
-  SettingForm(this.existingImages);
+  const SettingForm(this.existingImages);
 
   final List<BlogImage> existingImages;
 
@@ -83,12 +86,22 @@ class SettingForm extends StatefulWidget {
 class SettingFormState extends State<SettingForm> {
   final _formKey = GlobalKey<FormState>();
   List<ImageInputAdapter>? _images;
+  String? _displayName = "";
+  String? _comment = "";
 
-  void submit() {
-    if (_formKey.currentState?.validate() ?? false) {
+  void _submission() {
+    if (_formKey.currentState?.validate() ?? false){
       _formKey.currentState?.save();
+      log("display_name: $_displayName");
+      log("comment: $_comment");
+      //モデルに値をセットする
+      final appUser = AppUser(_displayName!, _comment!);
       var snackbarText = 'Upload successful';
+      log(appUser.displayName.toString() + ':' + appUser.comment.toString());
 
+      //TODO: モデルをFirebaseに反映する。
+
+      //写真のアップロード処理（TODO: 今は動かないので写真無し版が出来次第実装する）
       try {
         // New images
         _images?.where((i) => i.isFile).forEach((i) async {
@@ -108,7 +121,7 @@ class SettingFormState extends State<SettingForm> {
           BlogImage.fromUrl(i.originalUrl).then((b) => b?.delete());
         });
       } catch (e) {
-        print(e);
+        log(e.toString());
         snackbarText = "Couldn't save. Please try again later.";
       } finally {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(snackbarText)));
@@ -118,7 +131,7 @@ class SettingFormState extends State<SettingForm> {
 
   @override
   Widget build(BuildContext context) {
-    final shouldAllowMultiple = true;
+    const shouldAllowMultiple = true;
 
     return Form(
       key: _formKey,
@@ -134,6 +147,9 @@ class SettingFormState extends State<SettingForm> {
               }
               return null;
             },
+            onSaved: (String? value) {
+              _displayName = value!;
+            },
           ),
           TextFormField(
             decoration: const InputDecoration(
@@ -144,6 +160,9 @@ class SettingFormState extends State<SettingForm> {
                 return 'Please enter some text';
               }
               return null;
+            },
+            onSaved: (String? value) {
+              _comment = value!;
             },
           ),
           ImageFormField<ImageInputAdapter>(
@@ -164,7 +183,7 @@ class SettingFormState extends State<SettingForm> {
             previewImageBuilder: (_, image) => image.widgetize(),
           ),
           TextButton(
-            onPressed: submit,
+            onPressed: _submission,
             child: const Text('Update Profile'),
           )
         ],
