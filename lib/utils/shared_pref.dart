@@ -5,7 +5,6 @@ class SharedPrefs {
 
   static Future<void> setInstance() async {
     prefsInstance ??= await SharedPreferences.getInstance();
-    print('インスタンスを生成');
   }
 
   static Future<void> setUid(String newUid) async{

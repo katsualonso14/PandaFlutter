@@ -67,7 +67,7 @@ class _TalkRoomPageState extends State<TalkRoomPage> {
                                     ),
 
                                     child: Text(_message.message)),
-                                Text(intl.DateFormat('HH:mm').format(sendTime)
+                                Text(intl.DateFormat('MM/dd HH:mm').format(sendTime)
                                     , style: TextStyle(fontSize: 10)),
                               ],
                             ),

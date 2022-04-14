@@ -68,13 +68,17 @@ class _TopPageState extends State<TopPage> {
                                 radius: 30,
                               ),
                             ),
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(userList[index].talkUser.name, style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                                  Text(userList[index].lastMessage, style: TextStyle(color: Colors.grey),),
-                                ]
+                            Flexible(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+
+                                  children: [
+                                    Text(userList[index].talkUser.name, style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                                    Text(userList[index].lastMessage, style: TextStyle(color: Colors.grey),
+                                    maxLines: 1,)//二行目以降は表示しない
+                                  ]
+                              ),
                             )
                           ],
                         ),
