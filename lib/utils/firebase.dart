@@ -65,18 +65,17 @@ class Firestore {
     final profile = await userReference.doc(uid).get();
     User myProfile = User(
         //nullの場合の処理を置いておく
-        name: profile.data()!['name'] ?? '',
+        name: profile.data() != null ? profile.data()!['name']: '',
         uid: uid,
-        imagePath: profile.data()!['image_path'] ?? '',
+        imagePath: profile.data() != null ? profile.data()!['image_path'] : '',
     );
-    print('getProfile実行');
+    // print('getProfile実行');
     return myProfile;
   }
   static Future<List<TalkRoom>> getRoom(String myUid) async {
-    //snapshotがからのため、トップページにメーセージリストが表示されない
     final snapshot = await roomReference.get();
     List<TalkRoom> roomList = [];
-   //肩を明示的に宣言する必要がある　nullエラーになるため
+   //型を明示的に宣言する必要がある　nullエラーになるため
     await Future.forEach<QueryDocumentSnapshot<Map<String, dynamic>>>(snapshot.docs, (doc) async {
            if(doc.data()['joined_user_ids'].contains(myUid)) {
              //相手のID
