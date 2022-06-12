@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "336220913037",
+    "project_id": "panda-flutter",
+    "storage_bucket": "panda-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336220913037:android:7bc81b39c7bb3d7b9211c4",
+        "android_client_info": {
+          "package_name": "com.example.test_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336220913037-oaiuaq06po1bs12rnipc6gub2vrj0rei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI3lWZqHm4ODc1IR-bP6Y-4V7YrTWAeqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336220913037-oaiuaq06po1bs12rnipc6gub2vrj0rei.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "336220913037-9kevve5k7v0dbq6f2sde0qgmetvggsck.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
