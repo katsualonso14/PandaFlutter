@@ -14,7 +14,7 @@ class AuthPage extends StatelessWidget {
       ),
       home: MyAuthPage(),
       routes: <String, WidgetBuilder>{
-        '/home': (BuildContext context) => new MainPage(),
+        '/home': (BuildContext context) => new MyApp(),
         '/authpage': (BuildContext context) => new AuthPage(),
         '/settingpage': (BuildContext context) => new SettingPage()
       },
