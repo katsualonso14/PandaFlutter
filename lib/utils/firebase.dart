@@ -28,12 +28,22 @@ class Firestore {
   }
 
   //投稿追加
-  static Future<void> submitPost(String content) async {
+  static Future<void> submitPost(String content, String username) async {
     await posts.add({
       'content': content,
       'sendTime': Timestamp.now(),
-      'senderID': 'ユーザ(仮)'
+      'senderID': username,
+    });
+
+
+  }
+
+  //投稿追加
+  static Future<void> submitName(String username) async {
+    await posts.add({
+      'senderID': username,
     });
   }
+
 
 }
