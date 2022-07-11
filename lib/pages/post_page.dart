@@ -24,8 +24,7 @@ class _PostPage extends State<PostPage> {
   Future<void> getPost() async {
     postList = await Firestore.getPost();
   }
-
-
+  
   @override
   Widget build(BuildContext context) {
 
@@ -52,15 +51,15 @@ class _PostPage extends State<PostPage> {
             return Center(child: CircularProgressIndicator());
           }
 
-          return FutureBuilder(
-            future: getPost(),
-            builder: (context, snapshot) {
-              return ListView.builder(
-                reverse: true, //下からスクロール
-                itemCount: postList.length,
-                itemBuilder: (context, index) {
-                  Post _post = postList[index];
-                  DateTime sendTime = _post.sendTime.toDate();
+            return FutureBuilder(
+              future: getPost(),
+              builder: (context, snapshot) {
+                return ListView.builder(
+                  reverse: true, //下からスクロール
+                  itemCount: postList.length,
+                  itemBuilder: (context, index) {
+                    Post _post = postList[index];
+                    DateTime sendTime = _post.sendTime.toDate();
 
                   return Card(
                     child: Column(

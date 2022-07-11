@@ -82,3 +82,8 @@ class _PostAddPageState extends State<PostAddPage> {
     );
   }
 }
+
+//投稿追加
+_onItemTapped() async {
+print('tap');
+}
