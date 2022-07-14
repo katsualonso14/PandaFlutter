@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 
 import '../model/post.dart';
 import '../utils/firebase.dart';
@@ -14,12 +15,17 @@ class PostAddPage extends StatefulWidget {
 }
 
 class _PostAddPageState extends State<PostAddPage> {
+  //各画面のTextController
   TextEditingController _textEditingController = TextEditingController();
   TextEditingController _postTextEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     String userName = '';
     String content = '';
+    //各画面から受け取った画面フラグ
+    final pageNumber = ModalRoute.of(context)?.settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("投稿作成画面"),
@@ -30,13 +36,12 @@ class _PostAddPageState extends State<PostAddPage> {
           children: <Widget>[
             TextField(
               controller: _textEditingController,
-              // onSubmitted: _onSubmitted,
               onChanged: (value) {
                 userName = value;
               },
               enabled: true,
               maxLength: 50, //入力数
-              maxLengthEnforced: false,//入力上限の文字入力抑制
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,//入力上限の文字入力抑制
               style: TextStyle(color: Colors.black),
               obscureText: false,
               maxLines: 1,
@@ -54,7 +59,7 @@ class _PostAddPageState extends State<PostAddPage> {
               },
               enabled: true,
               maxLength: 50, //入力数
-              maxLengthEnforced: false,//入力上限の文字入力抑制
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,//入力上限の文字入力抑制
               style: TextStyle(color: Colors.black),
               obscureText: false,
               maxLines: 1,
@@ -70,20 +75,16 @@ class _PostAddPageState extends State<PostAddPage> {
                 onPrimary: Colors.white,
               ),
               onPressed: () {
-                Firestore.submitPost(content, userName);
+                //投稿画面のタップ時にFirestoreに登録
+                Firestore.submitPost(pageNumber,content, userName);
                 _textEditingController.clear();
                 _postTextEditingController.clear();
               },
-              child: Text('投稿'),
+              child: const Text('投稿'),
             )
           ]
         ),
       ),
     );
   }
-}
-
-//投稿追加
-_onItemTapped() async {
-print('tap');
 }

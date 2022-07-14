@@ -23,14 +23,13 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: [
+        children: const [
           PostPage(),
           LaundryPostPage(),
         ],
       ),
-
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.bathtub),
             label: 'Bathroom',

@@ -6,10 +6,7 @@ import 'package:test_flutter/pages/post_add_page.dart';
 import 'package:test_flutter/utils/firebase.dart';
 
 import '../model/post.dart';
-import '../model/user.dart';
-
-
-
+import '../model/laundry.dart';
 
 class PostPage extends StatefulWidget {
   @override
@@ -18,25 +15,23 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPage extends State<PostPage> {
-  List<User> userList = [];
   List<Post> postList = [];
+  final pageNumber = 0;
   //Firebaseデータ取得
   Future<void> getPost() async {
     postList = await Firestore.getPost();
   }
-  
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
         actions: [
-          //投稿作成画面へ遷移
           IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => PostAddPage())
-              );
-              print(userList);
+              //画面フラグ(pageNumber)を投稿追加ページに渡す
+              Navigator.pushNamed(context, '/PostAddPage' ,arguments: pageNumber);
             },
             icon: Icon(Icons.edit),
           )
