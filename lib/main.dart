@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_flutter/pages/laundry_post_page.dart';
+import 'package:test_flutter/pages/post_add_page.dart';
 import 'package:test_flutter/pages/post_page.dart';
+import 'package:test_flutter/utils/navigation.dart';
 import 'model/post.dart';
 import 'utils/firebase.dart';
 
@@ -15,8 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: PostPage(),
-    );
+        debugShowCheckedModeBanner: false,
+        home: Navigation(),
+        routes: <String, WidgetBuilder>{
+          '/postPage': (BuildContext context) => PostPage(),
+          '/PostAddPage': (BuildContext context) => PostAddPage(),
+          '/LaundryPostPage': (BuildContext context) => LaundryPostPage(),
+        });
   }
 }

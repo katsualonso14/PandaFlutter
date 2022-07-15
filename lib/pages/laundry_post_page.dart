@@ -1,30 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
+import 'package:test_flutter/model/laundry.dart';
 import 'package:test_flutter/pages/post_add_page.dart';
 import 'package:test_flutter/utils/firebase.dart';
+import 'package:intl/intl.dart' as intl;
 
-import '../model/post.dart';
-import '../model/laundry.dart';
-
-class PostPage extends StatefulWidget {
+class LaundryPostPage extends StatefulWidget {
   @override
-  const PostPage({Key? key}) : super(key: key);
-  _PostPage createState() => _PostPage();
+  const LaundryPostPage({Key? key}) : super(key: key);
+  _LaundryPostPage createState() => _LaundryPostPage();
 }
 
-class _PostPage extends State<PostPage> {
-  List<Post> postList = [];
-  final pageNumber = 0;
+class _LaundryPostPage extends State<LaundryPostPage> {
+  List<Laundry> laundryList = [];
+  final pageNumber = 1;
   //Firebaseデータ取得
-  Future<void> getPost() async {
-    postList = await Firestore.getPost();
+  Future<void> getLaundryPost() async {
+    laundryList = await Firestore.getLaundryPost();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -36,35 +32,35 @@ class _PostPage extends State<PostPage> {
             icon: Icon(Icons.edit),
           )
         ],
-        title: Text('お風呂'),
+        title: Text('洗濯機'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("posts").snapshots(),
+        stream: FirebaseFirestore.instance.collection("laundry").snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
           //ネット不安定時にくるくるを表示
           if(snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
 
-            return FutureBuilder(
-              future: getPost(),
-              builder: (context, snapshot) {
-                return ListView.builder(
-                  reverse: true, //下からスクロール
-                  itemCount: postList.length,
-                  itemBuilder: (context, index) {
-                    Post _post = postList[index];
-                    DateTime sendTime = _post.sendTime.toDate();
+          return FutureBuilder(
+            future: getLaundryPost(),
+            builder: (context, snapshot) {
+              return ListView.builder(
+                reverse: true, //下からスクロール
+                itemCount: laundryList.length,
+                itemBuilder: (context, index) {
+                  Laundry _laundryPost = laundryList[index];
+                  DateTime sendTime = _laundryPost.sendTime.toDate();
 
                   return Card(
                     child: Column(
                       children: [
-                        BathImages(),
+                        LaundryImages(),
                         ListTile(
-                          title: Text(_post.senderID),
-                          subtitle: Text(_post.post),
-                          leading: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKZhSeUQ9i1h-7Mkp5x4igIdW4kVS3Eo5PeZJS5nxvbZB2HLIVYXthSyrTqyMyGcjrzPw&usqp=CAU'),
-                          trailing: Text(intl.DateFormat('MM/dd HH:mm').format(sendTime),
+                          title: Text(_laundryPost.senderID),
+                          subtitle: Text(_laundryPost.post),
+                          leading: Image.network('https://miro.medium.com/max/1400/0*vowtRZE_wvyVA7CB'),
+                            trailing: Text(intl.DateFormat('MM/dd HH:mm').format(sendTime),
                             style: TextStyle(
                               fontSize: 11,
                               color: Colors.grey,
@@ -83,8 +79,8 @@ class _PostPage extends State<PostPage> {
     );
   }
 
-  //お風呂画像UI設定
-  Widget BathImages() {
+  //洗濯機画像UI設定
+  Widget LaundryImages() {
     return SizedBox(
       height: 150.0,
       width: double.infinity,
@@ -92,10 +88,9 @@ class _PostPage extends State<PostPage> {
         borderRadius: BorderRadius.circular(12.0),
         child: FittedBox(
             fit: BoxFit.fitWidth,
-            child: Image.asset('images/ofuro.jpeg')
+            child: Image.asset('images/laundry.jpeg')
         ),
       ),
     );
   }
-
 }
