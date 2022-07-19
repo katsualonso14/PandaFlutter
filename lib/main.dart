@@ -41,15 +41,4 @@ class MyApp extends StatelessWidget {
       '/PostAddPage': (BuildContext context) => PostAddPage(),
       '/LaundryPostPage': (BuildContext context) => LaundryPostPage(),
     });
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //       debugShowCheckedModeBanner: false,
-  //       home: Navigation(),
-  //       routes: <String, WidgetBuilder>{
-  //         '/postPage': (BuildContext context) => PostPage(),
-  //         '/PostAddPage': (BuildContext context) => PostAddPage(),
-  //         '/LaundryPostPage': (BuildContext context) => LaundryPostPage(),
-  //         '/AuthPage': (BuildContext context) => AuthPage(),
-  //       });
-  // }
 }
