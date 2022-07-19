@@ -1,33 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/pages/setting.dart';
-import 'package:test_flutter/main.dart';
 
-class AuthPage extends StatelessWidget {
-  // This widget is the root of your application.
+class AuthPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyAuthPage(),
-      routes: <String, WidgetBuilder>{
-        '/home': (BuildContext context) => new MyApp(),
-        '/authpage': (BuildContext context) => new AuthPage(),
-        '/settingpage': (BuildContext context) => new SettingPage()
-      },
-    );
-  }
+  const AuthPage({Key? key}) : super(key: key);
+  _AuthPage createState() => _AuthPage();
 }
 
-class MyAuthPage extends StatefulWidget {
-  @override
-  _MyAuthPageState createState() => _MyAuthPageState();
-}
-
-class _MyAuthPageState extends State<MyAuthPage> {
+class _AuthPage extends State<AuthPage> {
   // 入力されたメールアドレス
   String newUserEmail = "";
   // 入力されたパスワード
