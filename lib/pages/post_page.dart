@@ -63,9 +63,16 @@ class _PostPage extends State<PostPage> {
                         ListTile(
                           title: Text(_post.senderID),
                           subtitle: Text(_post.post),
-                          leading: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKZhSeUQ9i1h-7Mkp5x4igIdW4kVS3Eo5PeZJS5nxvbZB2HLIVYXthSyrTqyMyGcjrzPw&usqp=CAU'),
+                          leading: const SizedBox(
+                            width: 60.0,
+                            height: 60.0,
+                            child: CircleAvatar(
+                                backgroundImage: AssetImage('images/duck2.jpeg'),
+                                radius: 16,
+                              ),
+                          ),
                           trailing: Text(intl.DateFormat('MM/dd HH:mm').format(sendTime),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 11,
                               color: Colors.grey,
                             ),
