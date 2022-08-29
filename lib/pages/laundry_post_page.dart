@@ -59,9 +59,16 @@ class _LaundryPostPage extends State<LaundryPostPage> {
                         ListTile(
                           title: Text(_laundryPost.senderID),
                           subtitle: Text(_laundryPost.post),
-                          leading: Image.network('https://miro.medium.com/max/1400/0*vowtRZE_wvyVA7CB'),
+                          leading: const SizedBox(
+                          width: 60.0,
+                          height: 60.0,
+                          child: CircleAvatar(
+                            backgroundImage: AssetImage('images/laundryicon.jpeg'),
+                            radius: 16,
+                          ),
+                        ),
                             trailing: Text(intl.DateFormat('MM/dd HH:mm').format(sendTime),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 11,
                               color: Colors.grey,
                             ),

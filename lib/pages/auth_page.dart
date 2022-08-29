@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +28,7 @@ class _AuthPage extends State<AuthPage> {
         child: Container(
           padding: EdgeInsets.all(32),
           child: Column(
+            mainAxisSize: MainAxisSize.min, //カラムの位置を調整できるように軸方向のサイズを最小に
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(labelText: "メールアドレス"),
@@ -74,7 +77,7 @@ class _AuthPage extends State<AuthPage> {
             ],
           ),
         ),
-      ),
+            ),
     );
   }
 }
