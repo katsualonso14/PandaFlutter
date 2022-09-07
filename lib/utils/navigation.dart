@@ -3,9 +3,9 @@ import 'package:test_flutter/pages/laundry_post_page.dart';
 import 'package:test_flutter/pages/post_page.dart';
 
 class Navigation extends StatefulWidget {
+  @override
   const Navigation({Key? key}) : super(key: key);
 
-  @override
   _NavigationState createState() => _NavigationState();
 }
 
@@ -29,7 +29,7 @@ class _NavigationState extends State<Navigation> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items:  [
           BottomNavigationBarItem(
             icon: Icon(Icons.bathtub),
             label: 'Bathroom',

@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:test_flutter/pages/post_add_page.dart';
+import 'package:test_flutter/pages/login.dart';
 import 'package:test_flutter/utils/firebase.dart';
-
 import '../model/post.dart';
-import '../model/laundry.dart';
+import '../utils/Auth.dart';
 
 class PostPage extends StatefulWidget {
   @override
@@ -15,16 +13,10 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPage extends State<PostPage> {
-  List<Post> postList = [];
   final pageNumber = 0;
-  //Firebaseデータ取得
-  Future<void> getPost() async {
-    postList = await Firestore.getPost();
-  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -37,54 +29,74 @@ class _PostPage extends State<PostPage> {
           )
         ],
         title: Text('お風呂'),
+        leading:  IconButton(onPressed: (){
+          Auth.singOut;
+          while(Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+          Navigator.pushReplacement(context, MaterialPageRoute(
+              builder: (context) => LoginPage()
+          ));
+        },
+            icon: Icon(Icons.arrow_back_ios))
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("posts").snapshots(),
+        stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myPosts').orderBy('sendTime', descending: true).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
           //ネット不安定時にくるくるを表示
           if(snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
-
-            return FutureBuilder(
-              future: getPost(),
+          if(snapshot.hasData) {
+            List<String> myPostIds = List.generate(snapshot.data!.docs.length, (index) {
+              return snapshot.data!.docs[index].id;
+            });
+            return FutureBuilder<List<Post>?>(
+              future: Firestore.getPostFromIds(myPostIds),
               builder: (context, snapshot) {
-                return ListView.builder(
-                  reverse: true, //下からスクロール
-                  itemCount: postList.length,
-                  itemBuilder: (context, index) {
-                    Post _post = postList[index];
-                    DateTime sendTime = _post.sendTime.toDate();
+                if(snapshot.hasData) {
+                  return ListView.builder(
+                    reverse: true, //下からスクロール
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      Post _post = snapshot.data![index];
+                      DateTime sendTime = _post.sendTime.toDate();
 
-                  return Card(
-                    child: Column(
-                      children: [
-                        BathImages(),
-                        ListTile(
-                          title: Text(_post.senderID),
-                          subtitle: Text(_post.post),
-                          leading: const SizedBox(
-                            width: 60.0,
-                            height: 60.0,
-                            child: CircleAvatar(
-                                backgroundImage: AssetImage('images/duck2.jpeg'),
-                                radius: 16,
+                      return Card(
+                        child: Column(
+                          children: [
+                            BathImages(),
+                            ListTile(
+                              title: Text(_post.senderName),
+                              subtitle: Text(_post.post),
+                              leading: const SizedBox(
+                                width: 60.0,
+                                height: 60.0,
+                                child: CircleAvatar(
+                                  backgroundImage: AssetImage('images/duck2.jpeg'),
+                                  radius: 16,
+                                ),
                               ),
-                          ),
-                          trailing: Text(intl.DateFormat('MM/dd HH:mm').format(sendTime),
-                            style: const TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey,
+                              trailing: Text(intl.DateFormat('MM/dd HH:mm').format(sendTime),
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   );
-                },
-              );
-            },
-          );
+                } else {
+                  return Container();
+                }
+              },
+            );
+          } else  {
+            return Container();
+          }
         },
       ),
     );

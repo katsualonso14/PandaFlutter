@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/laundry.dart';
-import 'package:test_flutter/pages/post_add_page.dart';
 import 'package:test_flutter/utils/firebase.dart';
 import 'package:intl/intl.dart' as intl;
+
+import '../utils/Auth.dart';
+import 'login.dart';
 
 class LaundryPostPage extends StatefulWidget {
   @override
@@ -12,12 +14,7 @@ class LaundryPostPage extends StatefulWidget {
 }
 
 class _LaundryPostPage extends State<LaundryPostPage> {
-  List<Laundry> laundryList = [];
   final pageNumber = 1;
-  //Firebaseデータ取得
-  Future<void> getLaundryPost() async {
-    laundryList = await Firestore.getLaundryPost();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,60 +24,84 @@ class _LaundryPostPage extends State<LaundryPostPage> {
           IconButton(
             onPressed: () {
               //画面フラグ(pageNumber)を投稿追加ページに渡す
-              Navigator.pushNamed(context, '/PostAddPage' ,arguments: pageNumber);
+              Navigator.pushNamed(context, '/PostAddPage',
+                  arguments: pageNumber);
             },
             icon: Icon(Icons.edit),
           )
         ],
         title: Text('洗濯機'),
+        leading: IconButton( onPressed: (){
+          Auth.singOut;
+          while(Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+          Navigator.pushReplacement(context, MaterialPageRoute(
+              builder: (context) => LoginPage()
+          ));
+        },
+            icon: Icon(Icons.arrow_back_ios))
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("laundry").snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+        stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myLaundryPosts').orderBy('sendTime', descending: true).snapshots(),
+        builder: (context, snapshot) {
           //ネット不安定時にくるくるを表示
-          if(snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
+          if (snapshot.hasData) {
+            List<String> myPostIds =
+                List.generate(snapshot.data!.docs.length, (index) {
+              return snapshot.data!.docs[index].id;
+            });
+            return FutureBuilder<List<Laundry>?>(
+              future: Firestore.getLaundryPostFromIds(myPostIds),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    reverse: true, //下からスクロール
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      Laundry _laundryPost = snapshot.data![index];
+                      DateTime sendTime = _laundryPost.sendTime.toDate();
 
-          return FutureBuilder(
-            future: getLaundryPost(),
-            builder: (context, snapshot) {
-              return ListView.builder(
-                reverse: true, //下からスクロール
-                itemCount: laundryList.length,
-                itemBuilder: (context, index) {
-                  Laundry _laundryPost = laundryList[index];
-                  DateTime sendTime = _laundryPost.sendTime.toDate();
-
-                  return Card(
-                    child: Column(
-                      children: [
-                        LaundryImages(),
-                        ListTile(
-                          title: Text(_laundryPost.senderID),
-                          subtitle: Text(_laundryPost.post),
-                          leading: const SizedBox(
-                          width: 60.0,
-                          height: 60.0,
-                          child: CircleAvatar(
-                            backgroundImage: AssetImage('images/laundryicon.jpeg'),
-                            radius: 16,
-                          ),
-                        ),
-                            trailing: Text(intl.DateFormat('MM/dd HH:mm').format(sendTime),
-                            style: const TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey,
+                      return Card(
+                        child: Column(
+                          children: [
+                            LaundryImages(),
+                            ListTile(
+                              title: Text(_laundryPost.senderName),
+                              subtitle: Text(_laundryPost.post),
+                              leading: const SizedBox(
+                                width: 60.0,
+                                height: 60.0,
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('images/laundryicon.jpeg'),
+                                  radius: 16,
+                                ),
+                              ),
+                              trailing: Text(
+                                intl.DateFormat('MM/dd HH:mm').format(sendTime),
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   );
-                },
-              );
-            },
-          );
+                } else {
+                  return Container();
+                }
+              },
+            );
+          } else {
+            return Container();
+          }
         },
       ),
     );

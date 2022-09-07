@@ -1,15 +1,17 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:test_flutter/utils/Auth.dart';
+import 'package:test_flutter/utils/firebase.dart';
+import 'package:test_flutter/utils/navigation.dart';
 
-class AuthPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  const AuthPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
   _AuthPage createState() => _AuthPage();
 }
 
-class _AuthPage extends State<AuthPage> {
+class _AuthPage extends State<LoginPage> {
   // 入力されたメールアドレス
   String newUserEmail = "";
   // 入力されたパスワード
@@ -48,36 +50,43 @@ class _AuthPage extends State<AuthPage> {
                 },
               ),
               const SizedBox(height: 8),
+              RichText(text: TextSpan(
+                style: TextStyle(color: Colors.black),
+                children: [
+                  TextSpan(text: 'シェアハウスアカウントを作成していない方は'),
+                  TextSpan(text: 'こちら',
+                  style: TextStyle(color: Colors.blue),
+                  recognizer: TapGestureRecognizer() ..onTap = () {
+                    Navigator.pushNamed(context, '/RegisterPage');
+                    })
+                ]
+              )),
+              const SizedBox(height: 8),
               ElevatedButton(
                 onPressed: () async {
-                  try {
-                    // メール/パスワードでログイン
-                    final FirebaseAuth auth = FirebaseAuth.instance;
-                    final UserCredential result =
-                        await auth.signInWithEmailAndPassword(
-                      email: loginUserEmail,
-                      password: loginUserPassword,
-                    );
-                    // ログインに成功した場合
-                    final User user = result.user!;
+                  var result = await Auth.signIn(email: loginUserEmail, password: loginUserPassword);
+                  if(result is UserCredential) {
+                    var _result = await Firestore.getUser(result.user!.uid);
+                    if(_result == true){
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Navigation()));
+                    }
+                  } else {
                     setState(() {
-                      infoText = "ログインOK：${user.email}";
-                    });
-                  } catch (e) {
-                    // ログインに失敗した場合
-                    setState(() {
-                      infoText = "ログインNG：${e.toString()}";
+                      infoText = 'Eメールもしくはパスワードが違います。';
                     });
                   }
                 },
                 child: Text("ログイン"),
               ),
               const SizedBox(height: 8),
-              Text(infoText),
+              Text(infoText,
+                style: TextStyle(
+                  color: Colors.red
+                ),),
             ],
           ),
         ),
-            ),
+      ),
     );
   }
 }

@@ -1,13 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/pages/laundry_post_page.dart';
 import 'package:test_flutter/pages/post_add_page.dart';
 import 'package:test_flutter/pages/post_page.dart';
-import 'package:test_flutter/pages/auth_page.dart';
+import 'package:test_flutter/pages/login.dart';
+import 'package:test_flutter/pages/register_page.dart';
 import 'package:test_flutter/utils/navigation.dart';
-import 'model/post.dart';
 import 'utils/firebase.dart';
 
 void main() async {
@@ -30,16 +29,19 @@ class MyApp extends StatelessWidget {
           return const SizedBox();
         }
         if (snapshot.hasData) {
-          // User が null でなない、つまりサインイン済みのホーム画面へ
+          // User が null でない(サインイン済み)ユーザー情報を取得し投稿画面へ
+          Firestore.getUser(snapshot.data!.uid);
+          // print(snapshot); //デバッグ用
           return Navigation();
         }
-        // User が null である、つまり未サインインのサインイン画面へ
-        return AuthPage();
+        // User が null である(未サインイン)の場合、サインイン画面へ
+        return LoginPage();
       },
     ),
     routes: <String, WidgetBuilder>{
       '/postPage': (BuildContext context) => PostPage(),
       '/PostAddPage': (BuildContext context) => PostAddPage(),
       '/LaundryPostPage': (BuildContext context) => LaundryPostPage(),
+      '/RegisterPage': (BuildContext context) => RegisterPage(),
     });
 }
