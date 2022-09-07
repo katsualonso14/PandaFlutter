@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:test_flutter/model/host_admin_user.dart';
+import 'package:test_flutter/utils/Auth.dart';
 import '../model/post.dart';
 import '../model/laundry.dart';
 
@@ -7,61 +9,126 @@ class Firestore {
   static final FirebaseFirestore _firebaseInstance = FirebaseFirestore.instance;
   static final posts = _firebaseInstance.collection('posts');
   static final laundry = _firebaseInstance.collection('laundry');
+  static final users = _firebaseInstance.collection('users');
 
-  //お風呂投稿データ取得
-  static Future<List<Post>>getPost() async{
-    List<Post> postList = [];
-    final snapshot = await posts.get();
-
-    await Future.forEach<QueryDocumentSnapshot<Map<String, dynamic>>>(snapshot.docs, (doc){
-
-      Post post = Post(
-          post: doc.data()['content'],
-          sendTime: doc.data()['sendTime'],
-          senderID: doc.data()['senderID']
-      );
-      postList.add(post);
-    });
-    //時間順に並べる
-    postList.sort((a,b) => b.sendTime.compareTo(a.sendTime));
-    return postList;
-  }
-
-  //洗濯機投稿データ取得
-  static Future<List<Laundry>>getLaundryPost() async{
-    List<Laundry> laundryPostList = [];
-    final snapshot = await laundry.get();
-
-    await Future.forEach<QueryDocumentSnapshot<Map<String, dynamic>>>(snapshot.docs, (doc){
-
-      Laundry laundry = Laundry(
-          post: doc.data()['content'],
-          sendTime: doc.data()['sendTime'],
-          senderID: doc.data()['senderID']
-      );
-      laundryPostList.add(laundry);
-    });
-    //時間順に並べる
-    laundryPostList.sort((a,b) => b.sendTime.compareTo(a.sendTime));
-    return laundryPostList;
+  //投稿追加
+  static Future<dynamic> submitPost(number,String content, Post newPost) async {
+    final CollectionReference _userPosts = _firebaseInstance.collection('users').doc(newPost.houseID).collection('myPosts');
+    try {
+        var result = await posts.add({
+          'content': content,
+          'sendTime': Timestamp.now(),
+          'houseID': newPost.houseID,
+          'senderName': newPost.senderName,
+        });
+        _userPosts.doc(result.id ).set({
+          'post_id': result.id,
+          'sendTime': Timestamp.now()
+        });
+      // print('投稿成功'); //デバッグ用
+      return true;
+    } on FirebaseException catch(e) {
+      // print('投稿エラー: $e'); //デバッグ用
+      return false;
+    }
   }
 
   //投稿追加
-  static Future<void> submitPost(number,String content, String username) async {
-    //お風呂画面から遷移してきた場合
-    if (number == 0) {
-      await posts.add({
-        'content': content,
-        'sendTime': Timestamp.now(),
-        'senderID': username,
+  static Future<dynamic> submitLaundryPost(number,String content, Laundry newLaundryPost) async {
+    final CollectionReference _userPosts = _firebaseInstance.collection('users').doc(newLaundryPost.houseID).collection('myLaundryPosts');
+    try {
+        var result = await laundry.add({
+          'content': content,
+          'sendTime': Timestamp.now(),
+          'houseID': newLaundryPost.houseID,
+          'senderName': newLaundryPost.senderName,
+        });
+        _userPosts.doc(result.id).set({
+          'post_id': result.id,
+          'sendTime': Timestamp.now()
+        });
+      // print('投稿成功'); //デバッグ用
+      return true;
+    } on FirebaseException catch(e) {
+      // print('投稿エラー: $e'); //デバッグ用
+      return false;
+    }
+  }
+
+  static Future<dynamic> getUser(String uid) async {
+    try{
+      DocumentSnapshot documentSnapshot = await users.doc(uid).get();
+      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+      HouseAdminUser myAccount = HouseAdminUser(
+          uid: uid,
+          email: data['email']
+      );
+      Auth.myAccount = myAccount;
+      // print('ユーザ取得成功'); //デバッグ用
+      return true;
+    } on FirebaseException catch(e) {
+      // print('ユーザ取得失敗: $e'); //デバッグ用
+      return false;
+    }
+  }
+
+  //Firestoreに登録
+  static Future<dynamic> setUser (HouseAdminUser newUser) async {
+    try {
+      await users.doc(newUser.uid).set({
+        'uid': newUser.uid,
+        'email': newUser.email,
       });
-    //洗濯機画面から遷移してきた場合
-    } else if (number == 1) {
-      await laundry.add({
-        'content': content,
-        'sendTime': Timestamp.now(),
-        'senderID': username,
+      // print('新規ユーザ作成成功'); //デバッグ用
+      return true;
+    } on FormatException catch(e) {
+      // print('新規ユーザ作成エラー'); //デバッグ用
+      return false;
+    }
+  }
+  //自分のID情報取得
+  static Future<List<Post>?> getPostFromIds(List<String> ids) async {
+    List<Post> postList = [];
+    try{
+      await Future.forEach(ids, (String id) async {
+        var doc  = await posts.doc(id).get();
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        Post post = Post(
+            post: data['content'],
+            sendTime: data['sendTime'],
+            senderName: data['senderName'],
+            houseID: data['houseID']
+        );
+        postList.add(post);
       });
+      // print('自分の投稿を表示'); //デバッグ用
+      return postList;
+    } on FirebaseException catch(e) {
+      // print('自分の投稿取得失敗 $e'); //デバッグ用
+      return null;
+    }
+  }
+
+  //自分のID情報取得
+  static Future<List<Laundry>?> getLaundryPostFromIds(List<String> ids) async {
+    List<Laundry> LaundryPostList = [];
+    try{
+      await Future.forEach(ids, (String id) async {
+        var doc  = await laundry.doc(id).get();
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        Laundry laundryPost = Laundry(
+            post: data['content'],
+            sendTime: data['sendTime'],
+            senderName: data['senderName'],
+            houseID: data['houseID']
+        );
+        LaundryPostList.add(laundryPost);
+      });
+      // print('自分の投稿を表示'); //デバッグ用
+      return LaundryPostList;
+    } on FirebaseException catch(e) {
+      // print('自分の投稿取得失敗 $e'); //デバッグ用
+      return null;
     }
   }
 }

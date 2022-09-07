@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:test_flutter/model/laundry.dart';
+import 'package:test_flutter/utils/Auth.dart';
 
 import '../model/post.dart';
 import '../utils/firebase.dart';
@@ -74,11 +75,37 @@ class _PostAddPageState extends State<PostAddPage> {
                 primary: Colors.blue,
                 onPrimary: Colors.white,
               ),
-              onPressed: () {
-                //投稿画面のタップ時にFirestoreに登録
-                Firestore.submitPost(pageNumber,content, userName);
-                _textEditingController.clear();
-                _postTextEditingController.clear();
+              onPressed: () async {
+
+                if (pageNumber == 0) {
+                  //投稿画面のタップ時にFirestoreに登録
+                  Post newPost = Post(
+                      post: content,
+                      sendTime: Timestamp.now(),
+                      senderName: userName,
+                      houseID: Auth.myAccount!.uid
+                  );
+                  var result = await Firestore.submitPost(pageNumber,content, newPost);
+                  if(result == true) {
+                    _textEditingController.clear();
+                    _postTextEditingController.clear();
+                    Navigator.pop(context);
+                  }
+                } else if(pageNumber == 1) {
+                  Laundry newLaundryPost = Laundry(
+                      post: content,
+                      sendTime: Timestamp.now(),
+                      senderName: userName,
+                      houseID: Auth.myAccount!.uid
+                  );
+                  var result = await Firestore.submitLaundryPost(pageNumber,content, newLaundryPost);
+                  if(result == true) {
+                    _textEditingController.clear();
+                    _postTextEditingController.clear();
+                    Navigator.pop(context);
+                  }
+                }
+
               },
               child: const Text('投稿'),
             )
