@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>237927906836-0p2n9045lavi3aqge4sc33pdvfl1k286.apps.googleusercontent.com</string>
+	<string>382069587079-2m84p2sbrh8v9nfp1ds3ik6qrou1ne7f.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.237927906836-0p2n9045lavi3aqge4sc33pdvfl1k286</string>
+	<string>com.googleusercontent.apps.382069587079-2m84p2sbrh8v9nfp1ds3ik6qrou1ne7f</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA82VsLFxTBz0wUnUrI7qp8bJAcYATkC2Y</string>
+	<string>AIzaSyDqmlmKC90f8d0KqzuBsyupb7j6SN8ZUjQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>237927906836</string>
+	<string>382069587079</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.testFlutter</string>
+	<string>com.example.housemaneger0908</string>
 	<key>PROJECT_ID</key>
-	<string>pandadb-release</string>
+	<string>house-manager-db</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pandadb-release.appspot.com</string>
+	<string>house-manager-db.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:237927906836:ios:4a687b160f962155bf7101</string>
+	<string>1:382069587079:ios:e9856500983729baeecc22</string>
 </dict>
 </plist>
