@@ -58,6 +58,7 @@ class _LaundryPostPage extends State<LaundryPostPage> {
               future: Firestore.getLaundryPostFromIds(myPostIds),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  // print('myLaundryPostIds is $myPostIds');//　取得できず
                   return ListView.builder(
                     reverse: true, //下からスクロール
                     itemCount: snapshot.data!.length,

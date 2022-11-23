@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:test_flutter/pages/login.dart';
 import 'package:test_flutter/utils/firebase.dart';
+import '../model/host_admin_user.dart';
 import '../model/post.dart';
+import '../utils/Auth.dart';
 import '../utils/Auth.dart';
 
 class PostPage extends StatefulWidget {
@@ -14,6 +16,8 @@ class PostPage extends StatefulWidget {
 
 class _PostPage extends State<PostPage> {
   final pageNumber = 0;
+  String myAccountUID = 'MNqPUZ5qNMS3cdBuiyClJcMHhio2'; //直接門仲のidを入力すれば表示される
+  // var myAccount = Auth.myAccount ?? HouseAdminUser(uid: 'uid', email: 'email');
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +51,17 @@ class _PostPage extends State<PostPage> {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if(snapshot.hasData) {
+          if(snapshot.hasData){
+            print('postPage');
+            print(Auth.myAccount?.uid);
+            print(Firestore.users.doc(Auth.myAccount?.uid).collection('myPosts').snapshots());
+            print(snapshot.data!.docs.length);
+            // print(Auth.myAccount?.uid);
+            // print(snapshot.data!.docs.length); //レングスが取れてない　
             List<String> myPostIds = List.generate(snapshot.data!.docs.length, (index) {
               return snapshot.data!.docs[index].id;
             });
+            print('myPostIds is $myPostIds');//　取得できず
             return FutureBuilder<List<Post>?>(
               future: Firestore.getPostFromIds(myPostIds),
               builder: (context, snapshot) {
@@ -90,11 +101,13 @@ class _PostPage extends State<PostPage> {
                     },
                   );
                 } else {
+                  print('FutureBuilder失敗');
                   return Container();
                 }
               },
             );
           } else  {
+            print('StreamBuilder失敗');
             return Container();
           }
         },
