@@ -64,8 +64,7 @@ class Firestore {
           email: data['email']
       );
       Auth.myAccount = myAccount;
-      print('ユーザ取得成功'); //デバッグ用
-      print(Auth.myAccount?.uid);
+      // print('ユーザ取得成功'); //デバッグ用
       return true;
     } on FirebaseException catch(e) {
       // print('ユーザ取得失敗: $e'); //デバッグ用
@@ -91,7 +90,6 @@ class Firestore {
   static Future<List<Post>?> getPostFromIds(List<String> ids) async {
     List<Post> postList = [];
     try{
-      // print('getPostFromIdsに入った');
       await Future.forEach(ids, (String id) async {
         var doc  = await posts.doc(id).get();
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -103,10 +101,10 @@ class Firestore {
         );
         postList.add(post);
       });
-      print('自分の投稿を表示'); //デバッグ用
+      // print('自分の投稿を表示'); //デバッグ用
       return postList;
     } on FirebaseException catch(e) {
-      print('自分の投稿取得失敗 $e'); //デバッグ用
+      // print('自分の投稿取得失敗 $e'); //デバッグ用
       return null;
     }
   }

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter/pages/laundry_post_page.dart';
 import 'package:test_flutter/pages/post_page.dart';
-import 'package:test_flutter/utils/Auth.dart';
-
-import 'firebase.dart';
 
 class Navigation extends StatefulWidget {
   @override
