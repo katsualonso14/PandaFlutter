@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/model/host_admin_user.dart';
 import 'package:test_flutter/pages/laundry_post_page.dart';
 import 'package:test_flutter/pages/post_add_page.dart';
 import 'package:test_flutter/pages/post_page.dart';
 import 'package:test_flutter/pages/login.dart';
 import 'package:test_flutter/pages/register_page.dart';
-import 'package:test_flutter/utils/Auth.dart';
 import 'package:test_flutter/utils/navigation.dart';
 import 'utils/firebase.dart';
 
