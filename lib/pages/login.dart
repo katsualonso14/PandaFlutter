@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:test_flutter/pages/my_ad_banner.dart';
+import 'package:test_flutter/pages/no_login_page.dart';
 import 'package:test_flutter/utils/Auth.dart';
 import 'package:test_flutter/utils/firebase.dart';
 import 'package:test_flutter/utils/navigation.dart';
@@ -83,6 +85,15 @@ class _AuthPage extends State<LoginPage> {
                 style: TextStyle(
                   color: Colors.red
                 ),),
+              OutlinedButton(
+                  child: const Text('ログインなしでページの確認', style: TextStyle(color: Colors.grey)),
+
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const NoLoginPage()));
+                  }
+              ),
+              const MyAdBanner(),
             ],
           ),
         ),

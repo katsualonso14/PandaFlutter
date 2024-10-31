@@ -1,6 +1,9 @@
-# test_flutter
+# House Manager
 
-A new Flutter project.
+this is private repository to save user info.
+
+if you want to check my code in this project, contect me.
+xabi.k0124football@gmail.com
 
 ## Getting Started
 
