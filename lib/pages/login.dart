@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:test_flutter/pages/my_ad_banner.dart';
 import 'package:test_flutter/utils/Auth.dart';
 import 'package:test_flutter/utils/firebase.dart';
 import 'package:test_flutter/utils/navigation.dart';
@@ -83,6 +84,7 @@ class _AuthPage extends State<LoginPage> {
                 style: TextStyle(
                   color: Colors.red
                 ),),
+              const MyAdBanner()
             ],
           ),
         ),
