@@ -42,14 +42,11 @@ class MyAdBanner extends HookWidget {
     }, []);
 
     return isAdLoaded.value && bannerAd.value != null
-        ? Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: SizedBox(
-        width: bannerAd.value!.size.width.toDouble(),
-        height: bannerAd.value!.size.height.toDouble(),
-        child: AdWidget(ad: bannerAd.value!),
-      ),
-    )
+        ? SizedBox(
+          width: bannerAd.value!.size.width.toDouble(),
+          height: bannerAd.value!.size.height.toDouble(),
+          child: AdWidget(ad: bannerAd.value!),
+        )
         : const SizedBox.shrink();
   }
 }

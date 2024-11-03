@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:test_flutter/pages/bath_images.dart';
+import 'package:test_flutter/pages/my_ad_banner.dart';
 import 'package:test_flutter/pages/no_login_aleat_dialog.dart';
 
 class NoLoginPage extends HookWidget {
@@ -28,6 +29,7 @@ class NoLoginPage extends HookWidget {
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.arrow_back_ios))),
+      bottomNavigationBar: const Padding(child:  MyAdBanner(),padding: EdgeInsets.all(30.0),),
       body: ListView(
 
         children: [

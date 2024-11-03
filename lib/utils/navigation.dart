@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter/pages/laundry_post_page.dart';
+import 'package:test_flutter/pages/my_ad_banner.dart';
 import 'package:test_flutter/pages/post_page.dart';
 
 class Navigation extends StatefulWidget {
@@ -33,19 +34,25 @@ class _NavigationState extends State<Navigation> {
           LaundryPostPage(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items:  [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bathtub),
-            label: 'Bathroom',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_laundry_service),
-            label: 'Laundry',
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const MyAdBanner(),
+          BottomNavigationBar(
+            items:  [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.bathtub),
+                label: 'Bathroom',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.local_laundry_service),
+                label: 'Laundry',
+              ),
+            ],
+            currentIndex: _currentIndex,
+            onTap: _onTap,
           ),
         ],
-        currentIndex: _currentIndex,
-        onTap: _onTap,
       ),
     );
   }
