@@ -5,6 +5,7 @@ import 'package:test_flutter/pages/bath_images.dart';
 import 'package:test_flutter/pages/signOutAlertDialog.dart';
 import 'package:test_flutter/pages/login.dart';
 import 'package:test_flutter/parts/delete_button.dart';
+import 'package:test_flutter/utils/delete_func.dart';
 import 'package:test_flutter/utils/firebase.dart';
 import '../model/post.dart';
 import '../utils/Auth.dart';
@@ -23,7 +24,7 @@ class _PostPage extends State<PostPage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          const DeleteButton(),
+          DeleteButton(buildContext: context),
           IconButton(
             onPressed: () {
               //画面フラグ(pageNumber)を投稿追加ページに渡す
