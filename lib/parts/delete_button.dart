@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:test_flutter/utils/delete_func.dart';
 
 class DeleteButton extends StatelessWidget {
-  const DeleteButton({Key? key}) : super(key: key);
+  const DeleteButton({Key? key, required this.buildContext}) : super(key: key);
+  final BuildContext buildContext;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class DeleteButton extends StatelessWidget {
       icon: const Icon(Icons.delete),
       onPressed: () {
         showDialog(
-            context: context,
+            context: buildContext,
             builder: (context) {
               return AlertDialog(
                 title: const Text('アカウント削除'),
@@ -20,14 +21,14 @@ class DeleteButton extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () async {
-                      await DeleteFunc.deleteUserAccount(context);
-                      Navigator.pop(context);
+                      await DeleteFunc.deleteUserAccount(buildContext);
+                      Navigator.pop(buildContext);
                     },
                     child: const Text('はい'),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(buildContext);
                     },
                     child: const Text('いいえ'),
                   ),
