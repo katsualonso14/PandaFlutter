@@ -13,7 +13,7 @@ class DeleteButton extends StatelessWidget {
       icon: const Icon(Icons.delete),
       onPressed: () {
         showDialog(
-            context: context,
+            context: buildContext,
             builder: (context) {
               return AlertDialog(
                 title: const Text('アカウント削除'),
@@ -28,7 +28,7 @@ class DeleteButton extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(buildContext);
                     },
                     child: const Text('いいえ'),
                   ),
