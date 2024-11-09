@@ -21,7 +21,6 @@ class MyAdBanner extends HookWidget {
         request: const AdRequest(),
         listener: BannerAdListener(
           onAdLoaded: (Ad ad) {
-            print('ad loaded!');
             isAdLoaded.value = true;
           },
           onAdFailedToLoad: (Ad ad, LoadAdError error) {
@@ -47,7 +46,10 @@ class MyAdBanner extends HookWidget {
           height: bannerAd.value!.size.height.toDouble(),
           child: AdWidget(ad: bannerAd.value!),
         )
-        : const SizedBox.shrink();
+        : const SizedBox(
+          width: 320,
+          height: 50,
+    );
   }
 }
 
