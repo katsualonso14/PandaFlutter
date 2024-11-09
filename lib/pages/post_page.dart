@@ -4,6 +4,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:test_flutter/pages/bath_images.dart';
 import 'package:test_flutter/pages/signOutAlertDialog.dart';
 import 'package:test_flutter/pages/login.dart';
+import 'package:test_flutter/parts/account_setting_button.dart';
 import 'package:test_flutter/parts/delete_button.dart';
 import 'package:test_flutter/utils/delete_func.dart';
 import 'package:test_flutter/utils/firebase.dart';
@@ -24,7 +25,7 @@ class _PostPage extends State<PostPage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          DeleteButton(buildContext: context),
+          AccountSettingButton(context),
           IconButton(
             onPressed: () {
               //画面フラグ(pageNumber)を投稿追加ページに渡す
@@ -33,16 +34,7 @@ class _PostPage extends State<PostPage> {
             icon: Icon(Icons.edit),
           )
         ],
-        title: Text('お風呂'),
-        leading:  IconButton(onPressed: (){
-          showDialog<void>(
-              context: context,
-              builder: (_) {
-                //サインアウト時は一度ダイアログで確認してから
-                return SignOutAlertDialog();
-              });
-        },
-            icon: Icon(Icons.arrow_back_ios))
+        title: const Text('Bathroom'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myPosts').orderBy('sendTime', descending: true).snapshots(),
