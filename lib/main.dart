@@ -36,10 +36,15 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               //処理呼び出し中はぐるぐるを表示
               if(snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                    child: SizedBox(
-                      child: CircularProgressIndicator(),
-                    )
+                return const Scaffold(
+                  backgroundColor: Colors.white,
+                  body: Center(
+                      child: SizedBox(
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                        ),
+                      )
+                  ),
                 );
               }
               if(snapshot.hasData) {
@@ -52,7 +57,7 @@ class MyApp extends StatelessWidget {
           );
         }
         // User が null である(未サインイン)の場合、サインイン画面へ
-        return LoginPage();
+        return const LoginPage();
       },
     ),
     routes: <String, WidgetBuilder>{

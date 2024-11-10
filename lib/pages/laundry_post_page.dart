@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/laundry.dart';
 import 'package:test_flutter/pages/my_ad_banner.dart';
+import 'package:test_flutter/parts/account_setting_button.dart';
 import 'package:test_flutter/parts/delete_button.dart';
 import 'package:test_flutter/utils/firebase.dart';
 import 'package:intl/intl.dart' as intl;
@@ -23,7 +24,7 @@ class _LaundryPostPage extends State<LaundryPostPage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          DeleteButton(buildContext: context),
+          AccountSettingButton(context),
           IconButton(
             onPressed: () {
               //画面フラグ(pageNumber)を投稿追加ページに渡す
@@ -33,17 +34,7 @@ class _LaundryPostPage extends State<LaundryPostPage> {
             icon: Icon(Icons.edit),
           )
         ],
-        title: Text('洗濯機'),
-        leading: IconButton( onPressed: (){
-          Auth.singOut;
-          while(Navigator.canPop(context)) {
-            Navigator.pop(context);
-          }
-          Navigator.pushReplacement(context, MaterialPageRoute(
-              builder: (context) => LoginPage()
-          ));
-        },
-            icon: Icon(Icons.arrow_back_ios))
+        title: const Text('Laundry'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myLaundryPosts').orderBy('sendTime', descending: true).snapshots(),
