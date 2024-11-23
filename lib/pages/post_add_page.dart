@@ -32,7 +32,7 @@ class _PostAddPageState extends State<PostAddPage> {
       appBar: AppBar(
         title: Text("投稿作成画面"),
       ),
-      bottomNavigationBar: const Padding(child:  MyAdBanner(),padding: EdgeInsets.all(30.0),),
+      // bottomNavigationBar: Padding(child: Container(),padding: const EdgeInsets.all(30.0),),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -74,8 +74,7 @@ class _PostAddPageState extends State<PostAddPage> {
             ),
             TextButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue,
-                onPrimary: Colors.white,
+                foregroundColor: Colors.white, backgroundColor: Colors.blue,
               ),
               onPressed: () async {
 

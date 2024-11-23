@@ -59,7 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.orange
+                        backgroundColor: Colors.orange
                     ),
                     onPressed: () async {
                       // フォームが有効か否かチェック

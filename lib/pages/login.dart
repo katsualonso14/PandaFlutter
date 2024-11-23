@@ -93,7 +93,7 @@ class _AuthPage extends State<LoginPage> {
                         builder: (context) => const NoLoginPage()));
                   }
               ),
-              const MyAdBanner(),
+               Padding(child: Container(),padding: const EdgeInsets.all(30.0),),
             ],
           ),
         ),

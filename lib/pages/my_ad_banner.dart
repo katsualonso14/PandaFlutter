@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -10,8 +12,8 @@ class MyAdBanner extends HookWidget {
 
     final bannerAd = useState<BannerAd?>(null);
     var isAdLoaded = useState(false); // 広告の読み込み状態
-    const bannerId = 'ca-app-pub-2751119101175618/9386059177'; // 広告ID
-
+    // ios, android で切り替え
+    String bannerId = Platform.isAndroid ? 'ca-app-pub-2751119101175618/6315571490' : 'ca-app-pub-2751119101175618/9386059177';
 
     // ad load
     void loadAd(){
