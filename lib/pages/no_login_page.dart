@@ -29,7 +29,7 @@ class NoLoginPage extends HookWidget {
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.arrow_back_ios))),
-      bottomNavigationBar: const Padding(child:  MyAdBanner(),padding: EdgeInsets.all(30.0),),
+      bottomNavigationBar: Padding(child: Container(),padding: const EdgeInsets.all(30.0),),
       body: ListView(
 
         children: [
