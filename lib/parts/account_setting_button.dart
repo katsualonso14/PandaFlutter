@@ -16,9 +16,9 @@ class AccountSettingButton extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('アカウント設定'),
+                title: const Text('Account Setting'),
                 content: const Text(
-                    'ログアウトの確認またはアカウント削除の確認を行います。',
+                  'Please confirm logout or account deletion.',
                     style: TextStyle(color: Colors.black45)
                 ),
                 actions: [
@@ -28,7 +28,7 @@ class AccountSettingButton extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('いいえ'),
+                    child: const Text('No'),
                   ),
                 ],
               );

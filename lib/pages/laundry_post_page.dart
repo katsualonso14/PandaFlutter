@@ -35,6 +35,7 @@ class _LaundryPostPage extends State<LaundryPostPage> {
           )
         ],
         title: const Text('Laundry', style: TextStyle(color: Color.fromRGBO(128, 222, 250, 1))),
+        centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myLaundryPosts').orderBy('sendTime', descending: true).snapshots(),

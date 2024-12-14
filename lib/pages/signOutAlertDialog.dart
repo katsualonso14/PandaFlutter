@@ -14,7 +14,7 @@ class _SignOutAlertDialogState extends State<SignOutAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        content: Text('サインアウトしてもよろしいですか'),
+      content: const Text('Are you sure you want to sign out?'),
       actions: <Widget>[
         TextButton(
           child: Text('Cancel'),
