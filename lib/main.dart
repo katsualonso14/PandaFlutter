@@ -48,9 +48,8 @@ class MyApp extends StatelessWidget {
                 );
               }
               if(snapshot.hasData) {
-                return Navigation();
+                return const Navigation();
               } else {
-                print('future not data');
                 return Container();
               }
             },
