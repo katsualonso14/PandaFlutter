@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_flutter/pages/laundry_post_page.dart';
 import 'package:test_flutter/pages/my_ad_banner.dart';
 import 'package:test_flutter/pages/post_page.dart';
+import 'package:test_flutter/pages/todo_page.dart';
 
 class Navigation extends StatefulWidget {
   @override
@@ -19,17 +20,13 @@ class _NavigationState extends State<Navigation> {
     });
   }
 
-  static const _screens = [
-    PostPage(),
-    LaundryPostPage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
         children: const [
+          TodoPage(),
           PostPage(),
           LaundryPostPage(),
         ],
@@ -39,7 +36,12 @@ class _NavigationState extends State<Navigation> {
         children: [
           const MyAdBanner(),
           BottomNavigationBar(
-            items:  [
+            selectedItemColor:  const Color.fromRGBO(128, 222, 250, 1),
+            items:  const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.check_box),
+                label: 'Todo',
+              ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.bathtub),
                 label: 'Bathroom',

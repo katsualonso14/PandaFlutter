@@ -34,7 +34,7 @@ class _PostPage extends State<PostPage> {
             icon: Icon(Icons.edit),
           )
         ],
-        title: const Text('Bathroom'),
+        title: const Text('Bathroom', style: TextStyle(color: Color.fromRGBO(128, 222, 250, 1))),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myPosts').orderBy('sendTime', descending: true).snapshots(),
