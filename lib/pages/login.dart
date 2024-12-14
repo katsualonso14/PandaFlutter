@@ -35,7 +35,7 @@ class _AuthPage extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min, //カラムの位置を調整できるように軸方向のサイズを最小に
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: "メールアドレス"),
+                decoration: const InputDecoration(labelText: "Mail Address"),
                 onChanged: (String value) {
                   setState(() {
                     loginUserEmail = value;
@@ -43,7 +43,7 @@ class _AuthPage extends State<LoginPage> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: "パスワード"),
+                decoration: const InputDecoration(labelText: "Password"),
                 obscureText: true,
                 onChanged: (String value) {
                   setState(() {
@@ -55,9 +55,9 @@ class _AuthPage extends State<LoginPage> {
               RichText(text: TextSpan(
                 style: TextStyle(color: Colors.black),
                 children: [
-                  TextSpan(text: 'シェアハウスアカウントを作成していない方は'),
-                  TextSpan(text: 'こちら',
-                  style: TextStyle(color: Colors.blue),
+                  const TextSpan(text: 'Please create an home account '),
+                  TextSpan(text: 'here',
+                  style: const TextStyle(color: Colors.blue),
                   recognizer: TapGestureRecognizer() ..onTap = () {
                     Navigator.pushNamed(context, '/RegisterPage');
                     })
@@ -74,11 +74,11 @@ class _AuthPage extends State<LoginPage> {
                     }
                   } else {
                     setState(() {
-                      infoText = 'Eメールもしくはパスワードが違います。';
+                      infoText = 'The email or password is incorrect.';
                     });
                   }
                 },
-                child: Text("ログイン"),
+                child: const Text("Login"),
               ),
               const SizedBox(height: 8),
               Text(infoText,
@@ -86,7 +86,7 @@ class _AuthPage extends State<LoginPage> {
                   color: Colors.red
                 ),),
               OutlinedButton(
-                  child: const Text('ログインなしでページの確認', style: TextStyle(color: Colors.grey)),
+                  child: const Text('Check the page without logging in', style: TextStyle(color: Colors.grey)),
 
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(

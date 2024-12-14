@@ -7,12 +7,12 @@ class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        child: const Text('ログアウト', style: TextStyle(color: Colors.blue)),
+        child: const Text('Sign out', style: TextStyle(color: Colors.blue)),
         onTap: () {
           showDialog<void>(
               context: context,
               builder: (_) {
-                //サインアウト時は一度ダイアログで確認してから
+                // check if the user wants to sign out
                 return const SignOutAlertDialog();
               });
         }

@@ -2,11 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:test_flutter/pages/bath_images.dart';
-import 'package:test_flutter/pages/signOutAlertDialog.dart';
-import 'package:test_flutter/pages/login.dart';
 import 'package:test_flutter/parts/account_setting_button.dart';
-import 'package:test_flutter/parts/delete_button.dart';
-import 'package:test_flutter/utils/delete_func.dart';
 import 'package:test_flutter/utils/firebase.dart';
 import '../model/post.dart';
 import '../utils/Auth.dart';
@@ -28,13 +24,13 @@ class _PostPage extends State<PostPage> {
           AccountSettingButton(context),
           IconButton(
             onPressed: () {
-              //画面フラグ(pageNumber)を投稿追加ページに渡す
               Navigator.pushNamed(context, '/PostAddPage' ,arguments: pageNumber);
             },
             icon: Icon(Icons.edit),
           )
         ],
         title: const Text('Bathroom', style: TextStyle(color: Color.fromRGBO(128, 222, 250, 1))),
+        centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myPosts').orderBy('sendTime', descending: true).snapshots(),

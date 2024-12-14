@@ -10,27 +10,27 @@ class DeleteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      child: const Text('アカウント削除', style: TextStyle(color: Colors.blue)),
+      child: const Text('Check delete Account', style: TextStyle(color: Colors.blue)),
         onTap: () {
           showDialog(
               context: buildContext,
               builder: (context) {
                 return AlertDialog(
-                  title: const Text('アカウント削除'),
-                  content: const Text('はいをタップするとアカウントが削除されます。\n本当に削除しますか？'),
+                  title: const Text('Delete Account'),
+                  content: const Text('Are you sure you want to delete your account?'),
                   actions: [
                     TextButton(
                       onPressed: () async {
                         await DeleteFunc.deleteUserAccount(buildContext);
                         Navigator.pop(buildContext);
                       },
-                      child: const Text('はい'),
+                      child: const Text('Yes'),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(buildContext);
                       },
-                      child: const Text('いいえ'),
+                      child: const Text('No'),
                     ),
                   ],
                 );
