@@ -109,7 +109,9 @@ class _PostAddPageState extends State<PostAddPage> {
 
               },
               child: const Text('Submit'),
-            )
+            ),
+            const SizedBox(height: 30),
+            const MyAdBanner(),
           ]
         ),
       ),

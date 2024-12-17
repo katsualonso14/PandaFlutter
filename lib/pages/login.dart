@@ -82,22 +82,24 @@ class _AuthPage extends State<LoginPage> {
               ),
               const SizedBox(height: 8),
               Text(infoText,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.red
                 ),),
               OutlinedButton(
-                  child: const Text('Check the page without logging in', style: TextStyle(color: Colors.grey)),
+                  child: const Text('Check the page without log in', style: TextStyle(color: Colors.grey)),
 
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => const NoLoginPage()));
                   }
               ),
-               Padding(child: Container(),padding: const EdgeInsets.all(30.0),),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.all(30.0),
+          child: MyAdBanner()),
     );
   }
 }

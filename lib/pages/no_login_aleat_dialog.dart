@@ -7,8 +7,8 @@ class NoLoginAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('イベントの追加について'),
-      content: const Text('イベントを追加するにはログインしてください'),
+      title: const Text('Add Event'),
+      content: const Text('Please login to add an event.'),
       actions: [
         TextButton(
           onPressed: () {
