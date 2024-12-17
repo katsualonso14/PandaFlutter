@@ -26,7 +26,7 @@ class TodoPage extends HookWidget {
         leading: IconButton(
             onPressed: (){
           showDialog(context: context, builder: (context) {
-            return AppExplainDialog();
+            return const AppExplainDialog();
           });
         },
             icon: const Icon(Icons.question_mark)),

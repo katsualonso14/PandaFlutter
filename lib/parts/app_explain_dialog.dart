@@ -32,7 +32,16 @@ class AppExplainDialog extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    image,
+                    Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: const Color.fromRGBO(128, 222, 250, 1),
+                            width: 1.8
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: image
+                    ),
                     const SizedBox(height: 50),
                     Container(
                         decoration: BoxDecoration(
