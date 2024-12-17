@@ -30,7 +30,7 @@ class _PostAddPageState extends State<PostAddPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("投稿作成画面"),
+        title: const Text("Post Page"),
       ),
       // bottomNavigationBar: Padding(child: Container(),padding: const EdgeInsets.all(30.0),),
       body: Center(
@@ -50,8 +50,8 @@ class _PostAddPageState extends State<PostAddPage> {
               maxLines: 1,
               decoration: const InputDecoration(
                 icon: Icon(Icons.speaker_notes),
-                hintText: '名前を記載します',
-                labelText: '名前 *',
+                hintText: 'Write your name',
+                labelText: 'Name *',
               ),
             ),
             TextField(
@@ -68,8 +68,8 @@ class _PostAddPageState extends State<PostAddPage> {
               maxLines: 1,
               decoration: const InputDecoration(
                 icon: Icon(Icons.speaker_notes),
-                hintText: '投稿内容を記載します',
-                labelText: '内容 *',
+                hintText: 'Write your post',
+                labelText: 'post *',
               ),
             ),
             TextButton(
@@ -108,7 +108,7 @@ class _PostAddPageState extends State<PostAddPage> {
                 }
 
               },
-              child: const Text('投稿'),
+              child: const Text('Submit'),
             )
           ]
         ),
