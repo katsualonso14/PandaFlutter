@@ -19,14 +19,14 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("アカウント作成"),
-        backgroundColor: Colors.blue,
+        title: const Text("Create Account", style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromRGBO(128, 222, 250, 1),
       ),
-      body: registerscreen(),
+      body: registerScreen(),
     );
   }
 
-  Widget registerscreen() {
+  Widget registerScreen() {
     return Container(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -35,31 +35,32 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Email*', hintText: "example@gmail.com"),
                     controller: emailInputController,
                     keyboardType: TextInputType.emailAddress,
                     validator: emailValidator,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Password*', hintText: "********"),
                     controller: pwdInputController,
                     obscureText: true,
                     validator: pwdValidator,
                   ),
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.all(10.0)
                   ),
                   ElevatedButton(
-                    child: Text(
-                      "アカウント作成",
+                    child: const Text(
+                      "Create Account",
                       style: TextStyle(
                         fontSize: 20.0,
+                        color: Colors.white,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange
+                        backgroundColor: const Color.fromRGBO(128, 222, 250, 1),
                     ),
                     onPressed: () async {
                       // フォームが有効か否かチェック

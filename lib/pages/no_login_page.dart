@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:test_flutter/pages/bath_images.dart';
+import 'package:test_flutter/pages/my_ad_banner.dart';
 import 'package:test_flutter/pages/no_login_aleat_dialog.dart';
 
 class NoLoginPage extends HookWidget {
@@ -19,7 +20,7 @@ class NoLoginPage extends HookWidget {
                       return const NoLoginAlertDialog();
                     });
               },
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
             )
           ],
           title: const Text('Bath room'),
@@ -28,9 +29,8 @@ class NoLoginPage extends HookWidget {
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.arrow_back_ios))),
-      bottomNavigationBar: Padding(child: Container(),padding: const EdgeInsets.all(30.0),),
+      bottomNavigationBar: const Padding(child: MyAdBanner(),padding: EdgeInsets.all(30.0),),
       body: ListView(
-
         children: [
           for(int i = 0; i < 3; i++)
          Card(
@@ -59,6 +59,8 @@ class NoLoginPage extends HookWidget {
             ],
           ),
         ),
+          // const SizedBox(height: 10),
+          // const MyAdBanner()
         ],
       ),
     );

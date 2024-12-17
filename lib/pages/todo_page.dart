@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:test_flutter/parts/account_setting_button.dart';
+import 'package:test_flutter/parts/app_explain_dialog.dart';
 
 class TodoPage extends HookWidget {
   const TodoPage({Key? key}) : super(key: key);
@@ -22,6 +23,13 @@ class TodoPage extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: (){
+          showDialog(context: context, builder: (context) {
+            return const AppExplainDialog();
+          });
+        },
+            icon: const Icon(Icons.question_mark)),
         actions: [
           AccountSettingButton(context),
         ],
