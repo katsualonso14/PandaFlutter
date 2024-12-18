@@ -10,20 +10,19 @@ class AccountSettingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        icon: const Icon(Icons.account_circle_outlined),
+        icon: const Icon(Icons.exit_to_app),
         onPressed: () {
           showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('Account Setting'),
+                title: const Text('Sign Out'),
                 content: const Text(
-                  'Please confirm logout or account deletion.',
+                  'Are you sure you want to sign out?',
                     style: TextStyle(color: Colors.black45)
                 ),
                 actions: [
                   const SignOutButton(),
-                  DeleteButton(buildContext: buildContext),
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);

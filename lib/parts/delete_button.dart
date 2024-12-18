@@ -9,9 +9,9 @@ class DeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: const Text('Check delete Account', style: TextStyle(color: Colors.blue)),
-        onTap: () {
+    return IconButton(
+      icon: const Icon(Icons.delete),
+        onPressed: () {
           showDialog(
               context: buildContext,
               builder: (context) {

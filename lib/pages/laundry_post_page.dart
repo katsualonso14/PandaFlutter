@@ -25,6 +25,7 @@ class _LaundryPostPage extends State<LaundryPostPage> {
       appBar: AppBar(
         actions: [
           AccountSettingButton(context),
+          DeleteButton(buildContext: context),
           IconButton(
             onPressed: () {
               //画面フラグ(pageNumber)を投稿追加ページに渡す
