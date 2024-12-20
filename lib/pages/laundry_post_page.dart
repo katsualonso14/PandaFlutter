@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/laundry.dart';
-import 'package:test_flutter/pages/my_ad_banner.dart';
+import 'package:test_flutter/parts/my_ad_banner.dart';
 import 'package:test_flutter/parts/account_setting_button.dart';
 import 'package:test_flutter/parts/delete_button.dart';
 import 'package:test_flutter/utils/firebase.dart';
