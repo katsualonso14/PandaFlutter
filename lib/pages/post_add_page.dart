@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:test_flutter/model/laundry.dart';
-import 'package:test_flutter/pages/my_ad_banner.dart';
+import 'package:test_flutter/parts/my_ad_banner.dart';
 import 'package:test_flutter/utils/Auth.dart';
 
 import '../model/post.dart';

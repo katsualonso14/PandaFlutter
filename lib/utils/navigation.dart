@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_flutter/pages/laundry_post_page.dart';
-import 'package:test_flutter/pages/my_ad_banner.dart';
+import 'package:test_flutter/parts/my_ad_banner.dart';
 import 'package:test_flutter/pages/post_page.dart';
 import 'package:test_flutter/pages/todo_page.dart';
 import 'package:test_flutter/parts/app_explain_dialog.dart';

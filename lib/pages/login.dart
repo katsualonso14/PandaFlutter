@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/pages/my_ad_banner.dart';
+import 'package:test_flutter/parts/my_ad_banner.dart';
 import 'package:test_flutter/pages/no_login_page.dart';
 import 'package:test_flutter/utils/Auth.dart';
 import 'package:test_flutter/utils/firebase.dart';
