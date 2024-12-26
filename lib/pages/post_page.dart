@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:test_flutter/pages/bath_images.dart';
-import 'package:test_flutter/parts/account_setting_button.dart';
+import 'package:test_flutter/parts/my_app_bar.dart';
 import 'package:test_flutter/utils/firebase.dart';
 import '../model/post.dart';
 import '../utils/Auth.dart';
@@ -14,24 +14,12 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPage extends State<PostPage> {
-  final pageNumber = 0;
+  final pageNumber = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          AccountSettingButton(context),
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/PostAddPage' ,arguments: pageNumber);
-            },
-            icon: Icon(Icons.edit),
-          )
-        ],
-        title: const Text('Bathroom', style: TextStyle(color: Color.fromRGBO(128, 222, 250, 1))),
-        centerTitle: true,
-      ),
+      appBar: MyAppBar(pageNumber: pageNumber),
       body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myPosts').orderBy('sendTime', descending: true).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){

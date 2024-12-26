@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:test_flutter/parts/account_setting_button.dart';
-import 'package:test_flutter/parts/app_explain_dialog.dart';
+import 'package:test_flutter/parts/my_app_bar.dart';
 
 class TodoPage extends HookWidget {
   const TodoPage({Key? key}) : super(key: key);
 
+  final pageNumber = 0;
   @override
   Widget build(BuildContext context) {
     // control list Map
@@ -22,19 +22,7 @@ class TodoPage extends HookWidget {
     ]);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: (){
-          showDialog(context: context, builder: (context) {
-            return const AppExplainDialog();
-          });
-        },
-            icon: const Icon(Icons.question_mark)),
-        actions: [
-          AccountSettingButton(context),
-        ],
-        title: const Text('Todo Page', style: TextStyle(color: Color.fromRGBO(128, 222, 250, 1))),
-      ),
+      appBar: MyAppBar(pageNumber: pageNumber),
       body: ReorderableListView(
           padding: const EdgeInsets.all(8),
           children: [
