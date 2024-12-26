@@ -12,7 +12,6 @@ class MyAdBanner extends HookWidget {
 
     final bannerAd = useState<BannerAd?>(null);
     var isAdLoaded = useState(false); // 広告の読み込み状態
-    // ios, android で切り替え
     String bannerId = 'ca-app-pub-5743090122530738/3182678099';
 
     // ad load

@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:test_flutter/parts/account_setting_button.dart';
 import 'package:test_flutter/parts/app_explain_dialog.dart';
 
@@ -10,9 +9,6 @@ class TodoPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    String rewardedAdId = 'ca-app-pub-5743090122530738/5284498763';
-    var interstitialAd = useState<InterstitialAd?>(null);
     // control list Map
     ValueNotifier<List<Map<String, dynamic>>> todoContents = useState([
       {"task": "Take out the trash", "isChecked": false},
@@ -24,49 +20,6 @@ class TodoPage extends HookWidget {
       {"task": "Wipe down the counters", "isChecked": false},
       {"task": "Fold the laundry", "isChecked": false},
     ]);
-
-    void loadAd() {
-      InterstitialAd.load(
-        adUnitId: rewardedAdId,
-        request: const AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (ad) {
-            interstitialAd.value = ad;
-            interstitialAd.value!.fullScreenContentCallback = FullScreenContentCallback(
-              onAdShowedFullScreenContent: (ad) {},
-              onAdDismissedFullScreenContent: (ad) {
-                debugPrint('ad onAdDismissedFullScreenContent.');
-                ad.dispose();
-                loadAd();
-              },
-              onAdFailedToShowFullScreenContent: (ad, error) {
-                debugPrint('ad onAdFailedToShowFullScreenContent.');
-                ad.dispose();
-                loadAd();
-              },
-            );
-          },
-          // Called when an ad request failed.
-          onAdFailedToLoad: (LoadAdError error) {
-            debugPrint('RewardedAd failed to load: $error');
-          },
-        ),
-
-      );
-    }
-
-    useEffect(() {
-      loadAd();
-      Future.delayed(const Duration(seconds: 4), () {
-        if(interstitialAd.value != null) {
-          interstitialAd.value!.show();
-        }
-      });
-
-      return () {
-        interstitialAd.value?.dispose();
-      };
-    }, []);
 
     return Scaffold(
       appBar: AppBar(
