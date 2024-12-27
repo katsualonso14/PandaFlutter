@@ -47,6 +47,8 @@ app.*.map.json
 
 # Firebase
 ios/Runner/GoogleService-Info.plist
+ios/Runner/GoogleService-Info-debug.plist
+ios/Runner/GoogleService-Info-release.plist
 android/app/google-services.json
 
 # Admob
