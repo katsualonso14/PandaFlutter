@@ -1,18 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:test_flutter/parts/account_setting_button.dart';
-import 'package:test_flutter/parts/app_explain_dialog.dart';
+import 'package:test_flutter/parts/my_app_bar.dart';
 
 class TodoPage extends HookWidget {
   const TodoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    String rewardedAdId = 'ca-app-pub-5743090122530738/5284498763';
-    var interstitialAd = useState<InterstitialAd?>(null);
     // control list Map
     ValueNotifier<List<Map<String, dynamic>>> todoContents = useState([
       {"task": "Take out the trash", "isChecked": false},
@@ -25,63 +20,8 @@ class TodoPage extends HookWidget {
       {"task": "Fold the laundry", "isChecked": false},
     ]);
 
-    void loadAd() {
-      InterstitialAd.load(
-        adUnitId: rewardedAdId,
-        request: const AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (ad) {
-            interstitialAd.value = ad;
-            interstitialAd.value!.fullScreenContentCallback = FullScreenContentCallback(
-              onAdShowedFullScreenContent: (ad) {},
-              onAdDismissedFullScreenContent: (ad) {
-                debugPrint('ad onAdDismissedFullScreenContent.');
-                ad.dispose();
-                loadAd();
-              },
-              onAdFailedToShowFullScreenContent: (ad, error) {
-                debugPrint('ad onAdFailedToShowFullScreenContent.');
-                ad.dispose();
-                loadAd();
-              },
-            );
-          },
-          // Called when an ad request failed.
-          onAdFailedToLoad: (LoadAdError error) {
-            debugPrint('RewardedAd failed to load: $error');
-          },
-        ),
-
-      );
-    }
-
-    useEffect(() {
-      loadAd();
-      Future.delayed(const Duration(seconds: 4), () {
-        if(interstitialAd.value != null) {
-          interstitialAd.value!.show();
-        }
-      });
-
-      return () {
-        interstitialAd.value?.dispose();
-      };
-    }, []);
-
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: (){
-          showDialog(context: context, builder: (context) {
-            return const AppExplainDialog();
-          });
-        },
-            icon: const Icon(Icons.question_mark)),
-        actions: [
-          AccountSettingButton(context),
-        ],
-        title: const Text('Todo Page', style: TextStyle(color: Color.fromRGBO(128, 222, 250, 1))),
-      ),
+      appBar: const MyAppBar(pageNumber: 0),
       body: ReorderableListView(
           padding: const EdgeInsets.all(8),
           children: [

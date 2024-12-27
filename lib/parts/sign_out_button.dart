@@ -6,9 +6,9 @@ class SignOutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        child: const Text('Sign out', style: TextStyle(color: Colors.blue)),
-        onTap: () {
+    return IconButton(
+        icon: const Icon(Icons.exit_to_app),
+        onPressed: () {
           showDialog<void>(
               context: context,
               builder: (_) {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/laundry.dart';
+import 'package:test_flutter/parts/my_app_bar.dart';
 import 'package:test_flutter/parts/my_ad_banner.dart';
 import 'package:test_flutter/parts/account_setting_button.dart';
 import 'package:test_flutter/parts/delete_button.dart';
@@ -17,27 +18,12 @@ class LaundryPostPage extends StatefulWidget {
 }
 
 class _LaundryPostPage extends State<LaundryPostPage> {
-  final pageNumber = 1;
+  final pageNumber = 3;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          AccountSettingButton(context),
-          DeleteButton(buildContext: context),
-          IconButton(
-            onPressed: () {
-              //画面フラグ(pageNumber)を投稿追加ページに渡す
-              Navigator.pushNamed(context, '/PostAddPage',
-                  arguments: pageNumber);
-            },
-            icon: Icon(Icons.edit),
-          )
-        ],
-        title: const Text('Laundry', style: TextStyle(color: Color.fromRGBO(128, 222, 250, 1))),
-        centerTitle: true,
-      ),
+      appBar: MyAppBar(pageNumber: pageNumber),
       body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myLaundryPosts').orderBy('sendTime', descending: true).snapshots(),
         builder: (context, snapshot) {
