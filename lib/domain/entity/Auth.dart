@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:test_flutter/model/host_admin_user.dart';
+import 'package:test_flutter/domain/entity/host_admin_user.dart';
 
 class Auth {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

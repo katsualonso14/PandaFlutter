@@ -1,15 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/model/laundry.dart';
-import 'package:test_flutter/parts/my_app_bar.dart';
-import 'package:test_flutter/parts/my_ad_banner.dart';
-import 'package:test_flutter/parts/account_setting_button.dart';
-import 'package:test_flutter/parts/delete_button.dart';
-import 'package:test_flutter/utils/firebase.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:test_flutter/domain/entity/Auth.dart';
+import 'package:test_flutter/domain/entity/firebase.dart';
+import 'package:test_flutter/domain/entity/laundry.dart';
+import 'package:test_flutter/presentation/parts/my_app_bar.dart';
 
-import '../utils/Auth.dart';
-import 'login.dart';
 
 class LaundryPostPage extends StatefulWidget {
   @override
@@ -29,7 +25,7 @@ class _LaundryPostPage extends State<LaundryPostPage> {
         builder: (context, snapshot) {
           //ネット不安定時にくるくるを表示
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasData) {
             List<String> myPostIds =

@@ -2,13 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:test_flutter/pages/laundry_post_page.dart';
-import 'package:test_flutter/pages/post_add_page.dart';
-import 'package:test_flutter/pages/post_page.dart';
-import 'package:test_flutter/pages/login.dart';
-import 'package:test_flutter/pages/register_page.dart';
-import 'package:test_flutter/utils/navigation.dart';
-import 'utils/firebase.dart';
+import 'package:test_flutter/domain/entity/firebase.dart';
+import 'package:test_flutter/presentation/pages/laundry_post_page.dart';
+import 'package:test_flutter/presentation/pages/login.dart';
+import 'package:test_flutter/presentation/pages/post_add_page.dart';
+import 'package:test_flutter/presentation/pages/post_page.dart';
+import 'package:test_flutter/presentation/pages/register_page.dart';
+import 'package:test_flutter/presentation/parts/navigation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

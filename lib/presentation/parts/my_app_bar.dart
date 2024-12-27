@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:test_flutter/parts/app_explain_dialog.dart';
-import 'package:test_flutter/parts/delete_button.dart';
-import 'package:test_flutter/parts/sign_out_button.dart';
+import 'package:test_flutter/presentation/parts/app_explain_dialog.dart';
+import 'package:test_flutter/presentation/parts/delete_button.dart';
+import 'package:test_flutter/presentation/parts/sign_out_button.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key, required this.pageNumber}) : super(key: key);
@@ -10,7 +10,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titles = ['Todo Page', "Today's Room Clean Todo", 'Bathroom', 'Laundry'];
+    const titles = ['ToDo Page', "Today's Room Clean ToDo", 'Bathroom', 'Laundry'];
     return AppBar(
       leading: pageNumber == 0 ? IconButton(
           onPressed: (){

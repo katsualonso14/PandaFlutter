@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/model/host_admin_user.dart';
-import 'package:test_flutter/utils/Auth.dart';
-import 'package:test_flutter/utils/firebase.dart';
+import 'package:test_flutter/domain/entity/Auth.dart';
+import 'package:test_flutter/domain/entity/firebase.dart';
+import 'package:test_flutter/domain/entity/host_admin_user.dart';
 
 class RegisterPage extends StatefulWidget {
   @override

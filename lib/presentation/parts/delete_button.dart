@@ -1,7 +1,5 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:test_flutter/utils/delete_func.dart';
+import 'package:test_flutter/domain/entity/delete_func.dart';
 
 class DeleteButton extends StatelessWidget {
   const DeleteButton({Key? key, required this.buildContext}) : super(key: key);

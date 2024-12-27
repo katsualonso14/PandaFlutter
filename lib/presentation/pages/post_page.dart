@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:test_flutter/pages/bath_images.dart';
-import 'package:test_flutter/parts/my_app_bar.dart';
-import 'package:test_flutter/utils/firebase.dart';
-import '../model/post.dart';
-import '../utils/Auth.dart';
+import 'package:test_flutter/domain/entity/Auth.dart';
+import 'package:test_flutter/domain/entity/firebase.dart';
+import 'package:test_flutter/domain/entity/post.dart';
+import 'package:test_flutter/presentation/pages/bath_images.dart';
+import 'package:test_flutter/presentation/parts/my_app_bar.dart';
 
 class PostPage extends StatefulWidget {
   @override

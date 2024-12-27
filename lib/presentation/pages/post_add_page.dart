@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
-import 'package:test_flutter/model/laundry.dart';
-import 'package:test_flutter/parts/my_ad_banner.dart';
-import 'package:test_flutter/utils/Auth.dart';
+import 'package:test_flutter/domain/entity/Auth.dart';
+import 'package:test_flutter/domain/entity/firebase.dart';
+import 'package:test_flutter/domain/entity/laundry.dart';
+import 'package:test_flutter/domain/entity/post.dart';
+import 'package:test_flutter/presentation/parts/my_ad_banner.dart';
 
-import '../model/post.dart';
-import '../utils/firebase.dart';
 
 
 class PostAddPage extends StatefulWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test_flutter/pages/laundry_post_page.dart';
-import 'package:test_flutter/pages/room_clean_page.dart';
-import 'package:test_flutter/parts/my_ad_banner.dart';
-import 'package:test_flutter/pages/post_page.dart';
-import 'package:test_flutter/pages/todo_page.dart';
-import 'package:test_flutter/parts/app_explain_dialog.dart';
+import 'package:test_flutter/presentation/pages/laundry_post_page.dart';
+import 'package:test_flutter/presentation/pages/post_page.dart';
+import 'package:test_flutter/presentation/pages/room_clean_page.dart';
+import 'package:test_flutter/presentation/pages/todo_page.dart';
+import 'package:test_flutter/presentation/parts/app_explain_dialog.dart';
+import 'package:test_flutter/presentation/parts/my_ad_banner.dart';
 
 class Navigation extends StatefulWidget {
   @override
@@ -84,7 +84,7 @@ class _NavigationState extends State<Navigation> {
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.check_box),
-                label: 'Todo',
+                label: 'ToDo',
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.house_outlined),
