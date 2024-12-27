@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_flutter/pages/laundry_post_page.dart';
+import 'package:test_flutter/pages/room_clean_page.dart';
 import 'package:test_flutter/parts/my_ad_banner.dart';
 import 'package:test_flutter/pages/post_page.dart';
 import 'package:test_flutter/pages/todo_page.dart';
@@ -49,6 +50,7 @@ class _NavigationState extends State<Navigation> {
         index: _currentIndex,
         children: const [
           TodoPage(),
+          RoomCleanPage(),
           PostPage(),
           LaundryPostPage(),
         ],
@@ -77,11 +79,16 @@ class _NavigationState extends State<Navigation> {
         children: [
           const MyAdBanner(),
           BottomNavigationBar(
-            selectedItemColor:  const Color.fromRGBO(128, 222, 250, 1),
-            items:  const [
+            selectedItemColor: const Color.fromRGBO(128, 222, 250, 1),
+            type: BottomNavigationBarType.fixed,
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.check_box),
                 label: 'Todo',
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.house_outlined),
+                  label: 'RoomClean'
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.bathtub),
