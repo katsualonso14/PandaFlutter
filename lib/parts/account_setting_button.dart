@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:test_flutter/parts/delete_button.dart';
 import 'package:test_flutter/parts/sign_out_button.dart';
 
 class AccountSettingButton extends StatelessWidget {

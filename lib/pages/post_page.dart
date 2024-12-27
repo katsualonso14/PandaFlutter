@@ -14,7 +14,7 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPage extends State<PostPage> {
-  final pageNumber = 1;
+  final pageNumber = 2;
 
   @override
   Widget build(BuildContext context) {

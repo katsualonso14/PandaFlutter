@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:test_flutter/parts/account_setting_button.dart';
 import 'package:test_flutter/parts/app_explain_dialog.dart';
 import 'package:test_flutter/parts/delete_button.dart';
+import 'package:test_flutter/parts/sign_out_button.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key, required this.pageNumber}) : super(key: key);
@@ -10,6 +10,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    const titles = ['Todo Page', "Today's Room Clean Todo", 'Bathroom', 'Laundry'];
     return AppBar(
       leading: pageNumber == 0 ? IconButton(
           onPressed: (){
@@ -20,19 +21,19 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.question_mark)
       ) : const SizedBox.shrink(),
       actions: [
-        AccountSettingButton(context),
-        pageNumber == 2 ? DeleteButton(buildContext: context): const SizedBox.shrink(),
-        pageNumber != 0 ?
+        if(pageNumber == 3) const SignOutButton(),
+        if(pageNumber == 3) DeleteButton(buildContext: context),
+        if(pageNumber == 2 || pageNumber == 3)
         IconButton(
           onPressed: () {
-            pageNumber == 1 ? Navigator.pushNamed(context, '/PostAddPage' ,arguments: pageNumber)
+            pageNumber == 2 ? Navigator.pushNamed(context, '/PostAddPage' ,arguments: pageNumber)
                 : Navigator.pushNamed(context, '/PostAddPage', arguments: pageNumber);
           },
           icon: const Icon(Icons.edit),
-        ): const SizedBox.shrink(),
+        ),
       ],
       title: Text(
-          pageNumber == 0 ? 'Todo Page' : pageNumber == 1 ? 'Bathroom' : 'Laundry',
+          titles[pageNumber],
           style: const TextStyle(color: Color.fromRGBO(128, 222, 250, 1))
       ),
       centerTitle: true,

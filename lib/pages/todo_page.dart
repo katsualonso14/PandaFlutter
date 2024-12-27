@@ -6,7 +6,6 @@ import 'package:test_flutter/parts/my_app_bar.dart';
 class TodoPage extends HookWidget {
   const TodoPage({Key? key}) : super(key: key);
 
-  final pageNumber = 0;
   @override
   Widget build(BuildContext context) {
     // control list Map
@@ -22,7 +21,7 @@ class TodoPage extends HookWidget {
     ]);
 
     return Scaffold(
-      appBar: MyAppBar(pageNumber: pageNumber),
+      appBar: const MyAppBar(pageNumber: 0),
       body: ReorderableListView(
           padding: const EdgeInsets.all(8),
           children: [

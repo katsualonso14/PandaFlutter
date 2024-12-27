@@ -18,7 +18,7 @@ class LaundryPostPage extends StatefulWidget {
 }
 
 class _LaundryPostPage extends State<LaundryPostPage> {
-  final pageNumber = 2;
+  final pageNumber = 3;
 
   @override
   Widget build(BuildContext context) {
