@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test_flutter/domain/entity/Auth.dart';
 
-import '../utils/Auth.dart';
 import 'login.dart';
 
 class SignOutAlertDialog extends StatefulWidget {

@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:test_flutter/parts/sign_out_button.dart';
+import 'package:test_flutter/presentation/parts/sign_out_button.dart';
 
 class AccountSettingButton extends StatelessWidget {
   const AccountSettingButton(this.buildContext, {Key? key}) : super(key: key);
