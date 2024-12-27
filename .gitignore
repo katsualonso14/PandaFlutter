@@ -44,3 +44,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase
+ios/Runner/GoogleService-Info.plist
+android/app/google-services.json
+
+# Admob
+ios/Runner/Info.plist
+ios/Runner/Info-Debug.plist
+ios/Runner/Info-Release.plist
+lib/presentation/parts/my_ad_banner.dart
