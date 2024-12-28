@@ -7,12 +7,12 @@ class RoomCleanPage extends HookWidget {
   const RoomCleanPage({Key? key}) : super(key: key);
   @override
 
-  @override
   Widget build(BuildContext context) {
     var makeBedPoint = useState(0);
     var deskPoint = useState(0);
     var floorPoint = useState(0);
     var throwAwayCanPoint = useState(0);
+    var sliderValue = useState(0.0);
 
     void setPrefData() async {
       final pref = await SharedPreferences.getInstance();
@@ -44,12 +44,18 @@ class RoomCleanPage extends HookWidget {
       throwAwayCanPoint.value = throwAwayCanPrefData ?? 0;
     }
 
+    void checkSliderValue() {
+      sliderValue.value = (makeBedPoint.value +
+              deskPoint.value +
+              floorPoint.value +
+              throwAwayCanPoint.value)
+          .toDouble();
+    }
+
     useEffect(() {
       getPrefData();
       return () {};
     }, []);
-
-
 
     return Scaffold(
         appBar: const MyAppBar(pageNumber: 1),
@@ -57,11 +63,11 @@ class RoomCleanPage extends HookWidget {
           children: [
             for (int i = 0; i < 4; i++)
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Center(
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.13,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40.0),
                       boxShadow: [
@@ -79,14 +85,13 @@ class RoomCleanPage extends HookWidget {
                         Text(
                             i == 0 ? 'Make the Bed' : i == 1 ? 'Clean the Desk' :
                             i == 2 ? 'Clean the Floor' : 'Throw away a can',
-                            style: const TextStyle(fontSize: 20)
-                        ),
+                            style: const TextStyle(fontSize: 20)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget> [
                             for(int y = 0; y < 3; y++)
                               Padding(
-                                padding: const EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                                 child: Column(
                                   children: [
                                     Text(y == 0 ? 'No Action' : y == 1 ? 'Good' : 'Perfect'),
@@ -107,6 +112,7 @@ class RoomCleanPage extends HookWidget {
                                             }
                                             // 毎回全部のデータを保存するか要確認
                                             setPrefData(); // SharedPreference(ios: UserDefault)にデータを保存
+                                            checkSliderValue();
                                           }
                                         }),
                                   ],
@@ -119,6 +125,38 @@ class RoomCleanPage extends HookWidget {
                   ),
                 ),
               ),
+            //TODO: set when the app loading
+            Slider(
+                value: sliderValue.value,
+                onChanged: (double value) {},
+                min: 0,
+                max: 8,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.06 ,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+                color: sliderValue.value == 8 ? const Color.fromRGBO(85, 222, 167, 1)
+                    : sliderValue.value >= 1 ? const Color.fromRGBO(201, 243, 255, 1)
+                    : Colors.white,
+              ),
+              child: Center(
+                child: Text(
+                    "Today's Room To-Do is "
+                        "${sliderValue.value == 8 ? 'Perfect!' : sliderValue.value >= 1 ? 'Good ' : 'No Action'}",
+                    style: const TextStyle(fontSize: 15),
+                ),
+              ),
+            ),
           ],
         ));
   }

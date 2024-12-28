@@ -10,7 +10,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titles = ['ToDo Page', "Today's Room Clean ToDo", 'Bathroom', 'Laundry'];
+    const titles = ['Weekly/Monthly To-Do', "Today's Room Clean To-Do", 'Bathroom', 'Laundry'];
     return AppBar(
       leading: pageNumber == 0 ? IconButton(
           onPressed: (){

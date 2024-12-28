@@ -12,7 +12,6 @@ class TodoPage extends HookWidget {
     ValueNotifier<List<Map<String, dynamic>>> todoContents = useState([
       {"task": "Take out the trash", "isChecked": false},
       {"task": "Do the laundry", "isChecked": false},
-      {"task": "Wash the dishes", "isChecked": false},
       {"task": "Vacuum the house", "isChecked": false},
       {"task": "Clean the bathroom", "isChecked": false},
       {"task": "Mop the floor", "isChecked": false},
