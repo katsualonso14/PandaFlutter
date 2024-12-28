@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_flutter/presentation/parts/my_app_bar.dart';
 
 class RoomCleanPage extends HookWidget {
@@ -8,10 +9,47 @@ class RoomCleanPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _groupValue = useState(0);
-    var _groupValue2 = useState(0);
-    var _groupValue3 = useState(0);
-    var _groupValue4 = useState(0);
+    var makeBedPoint = useState(0);
+    var deskPoint = useState(0);
+    var floorPoint = useState(0);
+    var throwAwayCanPoint = useState(0);
+
+    void setPrefData() async {
+      final pref = await SharedPreferences.getInstance();
+      pref.setInt('registerDate', DateTime.now().day);
+      pref.setInt('makeBed', makeBedPoint.value);
+      pref.setInt('desk', deskPoint.value);
+      pref.setInt('floor', floorPoint.value);
+      pref.setInt('throwAwayCan', throwAwayCanPoint.value);
+    }
+
+    void getPrefData() async {
+      final pref = await SharedPreferences.getInstance();
+      final setDate = pref.getInt('registerDate');
+      // if the date is different, initialize the data to 0
+      if(setDate != DateTime.now().day) {
+        pref.setInt('makeBed', 0);
+        pref.setInt('desk', 0);
+        pref.setInt('floor', 0);
+        pref.setInt('throwAwayCan', 0);
+      }
+
+      final makeBedPrefData = pref.getInt('makeBed');
+      final deskPrefData = pref.getInt('desk');
+      final floorPrefData = pref.getInt('floor');
+      final throwAwayCanPrefData = pref.getInt('throwAwayCan');
+      makeBedPoint.value = makeBedPrefData ?? 0;
+      deskPoint.value = deskPrefData ?? 0;
+      floorPoint.value = floorPrefData ?? 0;
+      throwAwayCanPoint.value = throwAwayCanPrefData ?? 0;
+    }
+
+    useEffect(() {
+      getPrefData();
+      return () {};
+    }, []);
+
+
 
     return Scaffold(
         appBar: const MyAppBar(pageNumber: 1),
@@ -54,19 +92,21 @@ class RoomCleanPage extends HookWidget {
                                     Text(y == 0 ? 'No Action' : y == 1 ? 'Good' : 'Perfect'),
                                     Radio(
                                         value: y,
-                                        groupValue: i == 0 ? _groupValue.value : i == 1 ?
-                                        _groupValue2.value : i == 2 ? _groupValue3.value : _groupValue4.value,
+                                        groupValue: i == 0 ? makeBedPoint.value : i == 1 ?
+                                        deskPoint.value : i == 2 ? floorPoint.value : throwAwayCanPoint.value,
                                         onChanged: (int? value) {
                                           if(value != null) {
                                             if(i == 0) {
-                                              _groupValue.value = value;
+                                              makeBedPoint.value = value;
                                             } else if(i == 1) {
-                                              _groupValue2.value = value;
+                                              deskPoint.value = value;
                                             } else if(i == 2) {
-                                              _groupValue3.value = value;
+                                              floorPoint.value = value;
                                             } else {
-                                              _groupValue4.value = value;
+                                              throwAwayCanPoint.value = value;
                                             }
+                                            // 毎回全部のデータを保存するか要確認
+                                            setPrefData(); // SharedPreference(ios: UserDefault)にデータを保存
                                           }
                                         }),
                                   ],
