@@ -10,7 +10,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titles = ['Weekly/Monthly To-Do', "Today's Room Clean To-Do", 'Bathroom', 'Laundry'];
+    const titles = ['Bathroom', 'Laundry', 'Todo'];
     return AppBar(
       leading: pageNumber == 0 ? IconButton(
           onPressed: (){
@@ -21,13 +21,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.question_mark)
       ) : const SizedBox.shrink(),
       actions: [
-        if(pageNumber == 3) const SignOutButton(),
-        if(pageNumber == 3) DeleteButton(buildContext: context),
-        if(pageNumber == 2 || pageNumber == 3)
+        if(pageNumber == 2) const SignOutButton(),
+        if(pageNumber == 2) DeleteButton(buildContext: context),
+        if(pageNumber == 0 || pageNumber == 1)
         IconButton(
           onPressed: () {
-            pageNumber == 2 ? Navigator.pushNamed(context, '/PostAddPage' ,arguments: pageNumber)
-                : Navigator.pushNamed(context, '/PostAddPage', arguments: pageNumber);
+            Navigator.pushNamed(context, '/PostAddPage', arguments: pageNumber);
           },
           icon: const Icon(Icons.edit),
         ),

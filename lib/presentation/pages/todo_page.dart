@@ -19,8 +19,9 @@ class TodoPage extends HookWidget {
       {"task": "Fold the laundry", "isChecked": false},
     ]);
     var sliderValue = useState(0.0);
+    const pageNumber = 2;
     return Scaffold(
-      appBar: const MyAppBar(pageNumber: 0),
+      appBar: const MyAppBar(pageNumber: pageNumber),
       body: Column(
         children: [
           Expanded(
