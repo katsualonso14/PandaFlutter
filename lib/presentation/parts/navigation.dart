@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_flutter/presentation/pages/laundry_post_page.dart';
 import 'package:test_flutter/presentation/pages/post_page.dart';
-import 'package:test_flutter/presentation/pages/room_clean_page.dart';
 import 'package:test_flutter/presentation/pages/todo_page.dart';
 import 'package:test_flutter/presentation/parts/app_explain_dialog.dart';
 import 'package:test_flutter/presentation/parts/my_ad_banner.dart';
@@ -49,10 +48,9 @@ class _NavigationState extends State<Navigation> {
       body: !_isFirstLaunch ? IndexedStack(
         index: _currentIndex,
         children: const [
-          TodoPage(),
-          RoomCleanPage(),
           PostPage(),
           LaundryPostPage(),
+          TodoPage(),
         ],
       ) : Center(child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -83,20 +81,16 @@ class _NavigationState extends State<Navigation> {
             type: BottomNavigationBarType.fixed,
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(Icons.check_box),
-                label: 'ToDo',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.house_outlined),
-                  label: 'RoomClean'
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.bathtub),
                 label: 'Bathroom',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.local_laundry_service),
                 label: 'Laundry',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.check_box),
+                label: 'ToDo',
               ),
             ],
             currentIndex: _currentIndex,
