@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:test_flutter/presentation/parts/app_explain_dialog.dart';
-import 'package:test_flutter/presentation/parts/delete_button.dart';
-import 'package:test_flutter/presentation/parts/sign_out_button.dart';
+import 'package:test_flutter/view/parts/app_explain_dialog.dart';
+import 'package:test_flutter/view/parts/delete_button.dart';
+import 'package:test_flutter/view/parts/sign_out_button.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key, required this.pageNumber}) : super(key: key);

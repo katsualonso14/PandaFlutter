@@ -55,4 +55,4 @@ android/app/google-services.json
 ios/Runner/Info.plist
 ios/Runner/Info-Debug.plist
 ios/Runner/Info-Release.plist
-lib/presentation/parts/my_ad_banner.dart
+lib/view/parts/my_ad_banner.dart

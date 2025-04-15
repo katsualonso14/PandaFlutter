@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test_flutter/presentation/pages/laundry_post_page.dart';
-import 'package:test_flutter/presentation/pages/post_page.dart';
-import 'package:test_flutter/presentation/pages/todo_page.dart';
-import 'package:test_flutter/presentation/parts/app_explain_dialog.dart';
-import 'package:test_flutter/presentation/parts/my_ad_banner.dart';
+import 'package:test_flutter/view/pages/laundry_post_page.dart';
+import 'package:test_flutter/view/pages/post_page.dart';
+import 'package:test_flutter/view/pages/todo_page.dart';
+import 'package:test_flutter/view/parts/app_explain_dialog.dart';
+import 'package:test_flutter/view/parts/my_ad_banner.dart';
 
 class Navigation extends StatefulWidget {
   @override

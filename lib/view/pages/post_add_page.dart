@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
-import 'package:test_flutter/domain/entity/Auth.dart';
-import 'package:test_flutter/domain/entity/firebase.dart';
-import 'package:test_flutter/domain/entity/laundry.dart';
-import 'package:test_flutter/domain/entity/post.dart';
-import 'package:test_flutter/presentation/parts/my_ad_banner.dart';
+import 'package:test_flutter/model/Auth.dart';
+import 'package:test_flutter/model/firebase.dart';
+import 'package:test_flutter/model/laundry.dart';
+import 'package:test_flutter/model/post.dart';
+import 'package:test_flutter/view/parts/my_ad_banner.dart';
 
 
 

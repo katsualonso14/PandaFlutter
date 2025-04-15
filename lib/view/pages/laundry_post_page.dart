@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:test_flutter/domain/entity/Auth.dart';
-import 'package:test_flutter/domain/entity/firebase.dart';
-import 'package:test_flutter/domain/entity/laundry.dart';
-import 'package:test_flutter/presentation/parts/my_app_bar.dart';
+import 'package:test_flutter/model/Auth.dart';
+import 'package:test_flutter/model/firebase.dart';
+import 'package:test_flutter/model/laundry.dart';
+import 'package:test_flutter/view/parts/my_app_bar.dart';
 
 
 class LaundryPostPage extends StatefulWidget {

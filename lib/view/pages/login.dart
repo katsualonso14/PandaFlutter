@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/domain/entity/Auth.dart';
-import 'package:test_flutter/domain/entity/firebase.dart';
-import 'package:test_flutter/presentation/pages/no_login_page.dart';
-import 'package:test_flutter/presentation/parts/my_ad_banner.dart';
-import 'package:test_flutter/presentation/parts/navigation.dart';
+import 'package:test_flutter/model/Auth.dart';
+import 'package:test_flutter/model/firebase.dart';
+import 'package:test_flutter/view/pages/no_login_page.dart';
+import 'package:test_flutter/view/parts/my_ad_banner.dart';
+import 'package:test_flutter/view/parts/navigation.dart';
 
 class LoginPage extends StatefulWidget {
   @override

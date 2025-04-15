@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/domain/entity/Auth.dart';
+import 'package:test_flutter/model/Auth.dart';
 
 import 'login.dart';
 
