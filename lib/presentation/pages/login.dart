@@ -34,6 +34,7 @@ class _AuthPage extends State<LoginPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min, //カラムの位置を調整できるように軸方向のサイズを最小に
             children: <Widget>[
+              SizedBox(height: MediaQuery.of(context).size.height * 0.15),
               TextFormField(
                 decoration: const InputDecoration(labelText: "Mail Address"),
                 onChanged: (String value) {
@@ -99,7 +100,7 @@ class _AuthPage extends State<LoginPage> {
       ),
       bottomNavigationBar: const Padding(
         padding: EdgeInsets.all(30.0),
-          child: MyAdBanner()),
+          child: MediumAdBanner()),
     );
   }
 }
