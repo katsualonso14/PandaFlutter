@@ -14,11 +14,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -59,9 +59,9 @@ class MyApp extends StatelessWidget {
       },
     ),
     routes: <String, WidgetBuilder>{
-      '/postPage': (BuildContext context) => PostPage(),
-      '/PostAddPage': (BuildContext context) => PostAddPage(),
-      '/LaundryPostPage': (BuildContext context) => LaundryPostPage(),
+      '/postPage': (BuildContext context) => const PostPage(),
+      '/PostAddPage': (BuildContext context) => const PostAddPage(),
+      '/LaundryPostPage': (BuildContext context) => const LaundryPostPage(),
       '/RegisterPage': (BuildContext context) => RegisterPage(),
     });
 }
