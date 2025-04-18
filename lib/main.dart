@@ -2,12 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:test_flutter/model/firebase.dart';
-import 'package:test_flutter/view/pages/laundry_post_page.dart';
+import 'package:test_flutter/model/firestore.dart';
 import 'package:test_flutter/view/pages/login.dart';
-import 'package:test_flutter/view/pages/post_add_page.dart';
-import 'package:test_flutter/view/pages/post_page.dart';
-import 'package:test_flutter/view/pages/register_page.dart';
 import 'package:test_flutter/view/parts/navigation.dart';
 
 void main() async {

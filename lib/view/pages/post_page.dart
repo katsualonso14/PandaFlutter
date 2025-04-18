@@ -1,47 +1,44 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:test_flutter/model/Auth.dart';
-import 'package:test_flutter/model/firebase.dart';
 import 'package:test_flutter/model/post.dart';
 import 'package:test_flutter/view/pages/bath_images.dart';
 import 'package:test_flutter/view/parts/my_app_bar.dart';
+import 'package:test_flutter/view_model/post_page_view_model.dart';
 
 class PostPage extends StatefulWidget {
   @override
   const PostPage({Key? key}) : super(key: key);
+  @override
   _PostPage createState() => _PostPage();
 }
 
 class _PostPage extends State<PostPage> {
   final pageNumber = 0;
+  final viewModel = PostPageViewModel(Auth.myAccount?.uid ?? ""); // 投稿ページ用のViewModel
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(pageNumber: pageNumber),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myPosts').orderBy('sendTime', descending: true).snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+      body: StreamBuilder<List<String>>(
+        stream: viewModel.myPostIdsStream(),
+        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
           //ネット不安定時にくるくるを表示
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           if(snapshot.hasData){
-            List<String> myPostIds = List.generate(snapshot.data!.docs.length, (index) {
-              return snapshot.data!.docs[index].id;
-            });
             return FutureBuilder<List<Post>?>(
-              future: Firestore.getPostFromIds(myPostIds),
-              builder: (context, snapshot) {
-                if(snapshot.hasData) {
+              future: viewModel.fetchPosts(snapshot.data!),
+              builder: (context, postSnapshot) {
+                if(postSnapshot.hasData) {
                   return ListView.builder(
                     reverse: true, //下からスクロール
-                    itemCount: snapshot.data!.length,
+                    itemCount: postSnapshot.data!.length,
                     itemBuilder: (context, index) {
-                      Post _post = snapshot.data![index];
+                      Post _post = postSnapshot.data![index];
                       DateTime sendTime = _post.sendTime.toDate();
-
                       return Card(
                         child: Column(
                           children: [
