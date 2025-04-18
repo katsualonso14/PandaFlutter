@@ -57,11 +57,5 @@ class MyApp extends StatelessWidget {
         // User が null である(未サインイン)の場合、サインイン画面へ
         return const LoginPage();
       },
-    ),
-    routes: <String, WidgetBuilder>{
-      '/postPage': (BuildContext context) => const PostPage(),
-      '/PostAddPage': (BuildContext context) => const PostAddPage(),
-      '/LaundryPostPage': (BuildContext context) => const LaundryPostPage(),
-      '/RegisterPage': (BuildContext context) => RegisterPage(),
-    });
+    ));
 }
