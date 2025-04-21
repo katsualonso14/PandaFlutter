@@ -5,21 +5,24 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:test_flutter/model/firestore.dart';
 import 'package:test_flutter/view/pages/login.dart';
 import 'package:test_flutter/view/parts/navigation.dart';
+import 'package:test_flutter/view_model/auth_check_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+   MyApp({Key? key}) : super(key: key);
+  final AuthCheckViewModel _authCheckViewModel = AuthCheckViewModel();
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
+
     home: StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: _authCheckViewModel.checkAuthState(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // スプラッシュ画面などに書き換えても良い
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.hasData) {
             return FutureBuilder(
-            future: Firestore.getUser(snapshot.data!.uid),
+            future: _authCheckViewModel.getUser(snapshot.data!.uid),
             builder: (context, snapshot) {
               //処理呼び出し中はぐるぐるを表示
               if(snapshot.connectionState == ConnectionState.waiting) {

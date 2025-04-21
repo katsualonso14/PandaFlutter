@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_flutter/model/Auth.dart';
 import 'package:test_flutter/model/host_admin_user.dart';
 import 'package:test_flutter/model/laundry.dart';
