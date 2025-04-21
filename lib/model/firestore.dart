@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:test_flutter/domain/entity/Auth.dart';
-import 'package:test_flutter/domain/entity/host_admin_user.dart';
-import 'post.dart';
-import 'laundry.dart';
+import 'package:test_flutter/model/Auth.dart';
+import 'package:test_flutter/model/host_admin_user.dart';
+import 'package:test_flutter/model/laundry.dart';
+import 'package:test_flutter/model/post.dart';
 
+// Firestoreの定義
 class Firestore {
   static final FirebaseFirestore _firebaseInstance = FirebaseFirestore.instance;
   static final posts = _firebaseInstance.collection('posts');
@@ -86,7 +86,18 @@ class Firestore {
       return false;
     }
   }
-  //自分のID情報取得
+  // 自分のポストID一覧を取得
+  static Stream<List<String>> getMyPostIds(String uid) {
+    return Firestore.users
+        .doc(uid)
+        .collection('myPosts')
+        .orderBy('sendTime', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+        snapshot.docs.map((doc) => doc.id).toList());
+  }
+
+  //自分の投稿情報をIDから取得
   static Future<List<Post>?> getPostFromIds(List<String> ids) async {
     List<Post> postList = [];
     try{
@@ -107,6 +118,16 @@ class Firestore {
       // print('自分の投稿取得失敗 $e'); //デバッグ用
       return null;
     }
+  }
+  //自分のランドリーポストID一覧を取得
+  static Stream<List<String>> getMyLaundryPostIds(String uid) {
+    return Firestore.users
+        .doc(uid)
+        .collection('myLaundryPosts')
+        .orderBy('sendTime', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+        snapshot.docs.map((doc) => doc.id).toList());
   }
 
   //自分のID情報取得

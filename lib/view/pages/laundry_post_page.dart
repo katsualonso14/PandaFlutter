@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:test_flutter/domain/entity/Auth.dart';
-import 'package:test_flutter/domain/entity/firebase.dart';
-import 'package:test_flutter/domain/entity/laundry.dart';
-import 'package:test_flutter/presentation/parts/my_app_bar.dart';
+import 'package:test_flutter/model/Auth.dart';
+import 'package:test_flutter/model/laundry.dart';
+import 'package:test_flutter/view/parts/my_app_bar.dart';
+import 'package:test_flutter/view_model/laundry_post_page_view_model.dart';
 
 
 class LaundryPostPage extends StatefulWidget {
@@ -15,28 +14,24 @@ class LaundryPostPage extends StatefulWidget {
 
 class _LaundryPostPage extends State<LaundryPostPage> {
   final pageNumber = 1;
+  final viewModel = LaundryPostPageViewModel(Auth.myAccount?.uid ?? ""); // 洗濯機ページ用のViewModel
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(pageNumber: pageNumber),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: Firestore.users.doc(Auth.myAccount?.uid).collection('myLaundryPosts').orderBy('sendTime', descending: true).snapshots(),
+      body: StreamBuilder<List<String>>(
+        stream: viewModel.myPostIdsStream(),
         builder: (context, snapshot) {
           //ネット不安定時にくるくるを表示
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasData) {
-            List<String> myPostIds =
-                List.generate(snapshot.data!.docs.length, (index) {
-              return snapshot.data!.docs[index].id;
-            });
             return FutureBuilder<List<Laundry>?>(
-              future: Firestore.getLaundryPostFromIds(myPostIds),
+              future: viewModel.fetchPosts(snapshot.data!),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  // print('myLaundryPostIds is $myPostIds');//　取得できず
                   return ListView.builder(
                     reverse: true, //下からスクロール
                     itemCount: snapshot.data!.length,

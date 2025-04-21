@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/domain/entity/Auth.dart';
-import 'package:test_flutter/domain/entity/firebase.dart';
-import 'package:test_flutter/presentation/pages/no_login_page.dart';
-import 'package:test_flutter/presentation/parts/my_ad_banner.dart';
-import 'package:test_flutter/presentation/parts/navigation.dart';
+import 'package:test_flutter/model/Auth.dart';
+import 'package:test_flutter/model/firestore.dart';
+import 'package:test_flutter/view/pages/no_login_page.dart';
+import 'package:test_flutter/view/pages/register_page.dart';
+import 'package:test_flutter/view/parts/my_ad_banner.dart';
+import 'package:test_flutter/view/parts/navigation.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -30,7 +31,7 @@ class _AuthPage extends State<LoginPage> {
     return Scaffold(
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisSize: MainAxisSize.min, //カラムの位置を調整できるように軸方向のサイズを最小に
             children: <Widget>[
@@ -54,13 +55,14 @@ class _AuthPage extends State<LoginPage> {
               ),
               const SizedBox(height: 8),
               RichText(text: TextSpan(
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 children: [
                   const TextSpan(text: 'Please create an home account '),
                   TextSpan(text: 'here',
                   style: const TextStyle(color: Colors.blue),
                   recognizer: TapGestureRecognizer() ..onTap = () {
-                    Navigator.pushNamed(context, '/RegisterPage');
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => RegisterPage()));
                     })
                 ]
               )),
@@ -71,7 +73,7 @@ class _AuthPage extends State<LoginPage> {
                   if(result is UserCredential) {
                     var _result = await Firestore.getUser(result.user!.uid);
                     if(_result == true){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Navigation()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Navigation()));
                     }
                   } else {
                     setState(() {

@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:test_flutter/presentation/parts/app_explain_dialog.dart';
-import 'package:test_flutter/presentation/parts/delete_button.dart';
-import 'package:test_flutter/presentation/parts/sign_out_button.dart';
+import 'package:test_flutter/view/pages/post_add_page.dart';
+import 'package:test_flutter/view/parts/app_explain_dialog.dart';
+import 'package:test_flutter/view/parts/delete_button.dart';
+import 'package:test_flutter/view/parts/sign_out_button.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key, required this.pageNumber}) : super(key: key);
@@ -26,7 +27,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         if(pageNumber == 0 || pageNumber == 1)
         IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/PostAddPage', arguments: pageNumber);
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => const PostAddPage(),
+            ));
           },
           icon: const Icon(Icons.edit),
         ),
