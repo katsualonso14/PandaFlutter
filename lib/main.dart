@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:test_flutter/model/firestore.dart';
 import 'package:test_flutter/view/pages/login.dart';
 import 'package:test_flutter/view/parts/navigation.dart';
 import 'package:test_flutter/view_model/auth_check_view_model.dart';
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
-
     home: StreamBuilder<User?>(
       stream: _authCheckViewModel.checkAuthState(),
       builder: (context, snapshot) {

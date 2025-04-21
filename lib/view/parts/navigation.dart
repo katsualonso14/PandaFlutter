@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_flutter/view/pages/laundry_post_page.dart';
 import 'package:test_flutter/view/pages/post_page.dart';
 import 'package:test_flutter/view/pages/todo_page.dart';
-import 'package:test_flutter/view/parts/app_explain_dialog.dart';
-import 'package:test_flutter/view/parts/my_ad_banner.dart';
+import 'package:test_flutter/view/parts/my_bottom_nav_bar.dart';
+import 'package:test_flutter/view/parts/welcome_page.dart';
+import 'package:test_flutter/view_model/pref_view_model.dart';
 
 class Navigation extends StatefulWidget {
   @override
@@ -17,6 +17,7 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   var _currentIndex  = 0;
   bool _isFirstLaunch = false;
+  final _prefViewModel = PrefViewModel();
 
   @override
   void initState() {
@@ -25,13 +26,7 @@ class _NavigationState extends State<Navigation> {
   }
 
   Future<void> _checkFirstLaunch() async {
-    final prefs = await SharedPreferences.getInstance();
-    final isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
-
-    if (isFirstLaunch) {
-      await prefs.setBool('isFirstLaunch', false);
-    }
-
+    bool isFirstLaunch = await _prefViewModel.checkFirstLaunch();
     setState(() {
       _isFirstLaunch = isFirstLaunch;
     });
@@ -46,59 +41,23 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: !_isFirstLaunch ? IndexedStack(
-        index: _currentIndex,
-        children: const [
-          PostPage(),
-          LaundryPostPage(),
-          TodoPage(),
-        ],
-      ) : Center(child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 20),
-            child: const Icon(Icons.house, size: 70, color: Color.fromRGBO(128, 222, 250, 1)),
-          ),
-              const Text('Welcome to House Manager App!', style: TextStyle(fontSize: 20)),
-              const Text('This app simplify your household tasks!', style: TextStyle(fontSize: 20)),
-              const Text('This is an explanation of the app.', style: TextStyle(fontSize: 20)),
-          const AppExplainDialog(),
-          ElevatedButton(
-              onPressed: (){
+      body: !_isFirstLaunch
+          ? IndexedStack(
+              index: _currentIndex,
+              children: const [
+                PostPage(),
+                LaundryPostPage(),
+                TodoPage(),
+              ],
+            )
+          : WelcomePage(
+              onStartPressed: () {
                 setState(() {
                   _isFirstLaunch = false;
                 });
               },
-              child: const Text('Start!')),
-        ],
-      )),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const MyAdBanner(),
-          BottomNavigationBar(
-            selectedItemColor: const Color.fromRGBO(128, 222, 250, 1),
-            type: BottomNavigationBarType.fixed,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.bathtub),
-                label: 'Bathroom',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.local_laundry_service),
-                label: 'Laundry',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.check_box),
-                label: 'ToDo',
-              ),
-            ],
-            currentIndex: _currentIndex,
-            onTap: _onTap,
-          ),
-        ],
-      ),
+            ),
+      bottomNavigationBar: MyBottomNavBar(currentIndex: _currentIndex, onTap: _onTap),
     );
   }
 }
