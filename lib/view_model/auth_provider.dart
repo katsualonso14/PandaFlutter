@@ -1,16 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:test_flutter/model/firestore.dart';
 
-class AuthCheckViewModel {
-  AuthCheckViewModel();
-
   // FirebaseのAuthチェック
-  Stream<User?> checkAuthState() {
+  final authStateProvider = StreamProvider<User?>((ref) {
     return FirebaseAuth.instance.authStateChanges();
-  }
+  });
 
   // FirebaseのUser情報取得
-  Future<dynamic> getUser(String uid) {
+  final userDataProvider = FutureProvider.family<dynamic, String>((ref, uid) {
     return Firestore.getUser(uid);
-  }
-}
+  });

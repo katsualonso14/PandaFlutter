@@ -1,15 +1,14 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:test_flutter/view/parts/my_ad_banner.dart';
+import 'package:test_flutter/view_model/app_state_provider.dart';
 
-class MyBottomNavBar extends StatelessWidget {
-  final int currentIndex;
-  final Function(int) onTap;
-  const MyBottomNavBar({Key? key, required this.currentIndex, required this.onTap}) : super(key: key);
+class MyBottomNavBar extends ConsumerWidget {
+  const MyBottomNavBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentIndex = ref.watch(bottomNavIndexProvider);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -32,7 +31,9 @@ class MyBottomNavBar extends StatelessWidget {
             ),
           ],
           currentIndex: currentIndex,
-          onTap: onTap,
+          onTap: (index) {
+            ref.read(bottomNavIndexProvider.notifier).state = index;
+          },
         ),
       ],
     );
