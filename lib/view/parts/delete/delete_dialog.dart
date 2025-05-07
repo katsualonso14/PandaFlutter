@@ -1,10 +1,9 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/view/parts/delete_finish_alert_dialog.dart';
+import 'package:test_flutter/model/delete_view_model.dart';
 
 Widget DeleteDialog(BuildContext dialogContext, BuildContext parentContext) {
   final TextEditingController passwordController = TextEditingController();
+  final deleteViewModel = DeleteViewModel();
 
   return AlertDialog(
     title: const Text('削除するにはパスワードを入力してください'),
@@ -21,14 +20,13 @@ Widget DeleteDialog(BuildContext dialogContext, BuildContext parentContext) {
         child: const Text('Cancel'),
       ),
       TextButton(
-        onPressed: () {
-          // TODO: ここの責任はViewだけにするよう修正
+        onPressed: () async {
+          Navigator.pop(dialogContext); // 先に今のダイアログを閉じる
+          await Future.delayed(const Duration(milliseconds: 300)); // ダイアログが閉じるのを待つ
+          // テスト対象にするならViewModelへの分離も検討
           final password = passwordController.text;
           if (password.isNotEmpty) {
-            Navigator.pop(dialogContext);
-            Future.microtask(() {
-              reauthenticateUser(parentContext, password);
-            });
+            deleteViewModel.reauthenticateUser(parentContext, password);
           } else {
             ScaffoldMessenger.of(dialogContext).showSnackBar(
               const SnackBar(content: Text('Please enter a password')),
@@ -39,26 +37,4 @@ Widget DeleteDialog(BuildContext dialogContext, BuildContext parentContext) {
       ),
     ],
   );
-}
-
-void reauthenticateUser(BuildContext parentContext, String password) async {
-  User? user = FirebaseAuth.instance.currentUser;
-
-  if (user != null) {
-    try {
-      String email = user.email!;
-      final credential =
-      EmailAuthProvider.credential(email: email, password: password);
-      await user.reauthenticateWithCredential(credential);
-      
-        showDialog(
-          context: parentContext,
-          builder: (builderContext) {
-            return DeleteFinishAlertDialog(builderContext);
-          },
-        );
-    } catch (e) {
-      print('Re-authentication failed: $e');
-    }
-  }
 }

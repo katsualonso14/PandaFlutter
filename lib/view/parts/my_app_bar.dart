@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter/view/pages/post_add_page.dart';
 import 'package:test_flutter/view/parts/app_explain_dialog.dart';
-import 'package:test_flutter/view/parts/delete_button.dart';
+import 'package:test_flutter/view/parts/delete/delete_button.dart';
 import 'package:test_flutter/view/parts/sign_out_button.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {

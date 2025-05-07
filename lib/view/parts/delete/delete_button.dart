@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/view/parts/delete_dialog.dart';
+import 'package:test_flutter/view/parts/delete/delete_dialog.dart';
 
 class DeleteButton extends StatelessWidget {
   const DeleteButton({Key? key, required this.buildContext}) : super(key: key);
@@ -18,6 +18,12 @@ class DeleteButton extends StatelessWidget {
                   content: const Text('Are you sure you want to delete your account?'),
                   actions: [
                     TextButton(
+                      onPressed: () {
+                        Navigator.pop(buildContext);
+                      },
+                      child: const Text('No'),
+                    ),
+                    TextButton(
                       onPressed: () async {
                         Navigator.pop(context); // 先に今のダイアログを閉じる
                         await Future.delayed(const Duration(milliseconds: 300)); // ダイアログが閉じるのを待つ
@@ -31,12 +37,6 @@ class DeleteButton extends StatelessWidget {
                       },
 
                       child: const Text('Yes'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(buildContext);
-                      },
-                      child: const Text('No'),
                     ),
                   ],
                 );
