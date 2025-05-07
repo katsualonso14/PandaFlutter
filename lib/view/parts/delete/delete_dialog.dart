@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/model/delete_view_model.dart';
+import 'package:test_flutter/view_model/delete_view_model.dart';
 
 Widget DeleteDialog(BuildContext dialogContext, BuildContext parentContext) {
   final TextEditingController passwordController = TextEditingController();

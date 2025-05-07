@@ -29,6 +29,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(
               builder: (context) => const PostAddPage(),
+              // 共通Widgetに渡すページ番号を指定
+              settings: RouteSettings(
+                arguments: pageNumber,
+              ),
             ));
           },
           icon: const Icon(Icons.edit),
