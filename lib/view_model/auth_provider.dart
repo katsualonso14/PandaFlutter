@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:test_flutter/model/firestore.dart';
+import 'package:test_flutter/model/firebase/firestore.dart';
 
   // FirebaseのAuthチェック
   final authStateProvider = StreamProvider<User?>((ref) {

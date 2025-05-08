@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/Auth.dart';
-import 'package:test_flutter/model/firestore.dart';
+import 'package:test_flutter/model/firebase/firestore.dart';
 import 'package:test_flutter/model/host_admin_user.dart';
 
 class RegisterPage extends StatefulWidget {

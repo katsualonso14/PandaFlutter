@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:test_flutter/model/firebase_auth_service.dart';
+import 'package:test_flutter/model/firebase/firebase_auth_service.dart';
 
 Widget DeleteFinishAlertDialog(BuildContext context) {
   return AlertDialog(

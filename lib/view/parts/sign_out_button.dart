@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/view/pages/sign_out_alert_dialog.dart';
+import 'package:test_flutter/view/parts/sign_out_alert_dialog.dart';
 
 class SignOutButton extends StatelessWidget {
   const SignOutButton({Key? key}) : super(key: key);
