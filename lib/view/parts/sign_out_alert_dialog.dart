@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/Auth.dart';
 
-import 'login.dart';
+import '../pages/login.dart';
 
 class SignOutAlertDialog extends StatefulWidget {
   const SignOutAlertDialog({Key? key}) : super(key: key);

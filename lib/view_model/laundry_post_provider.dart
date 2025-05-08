@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:test_flutter/model/firestore.dart';
+import 'package:test_flutter/model/firebase/firestore.dart';
 import 'package:test_flutter/model/laundry.dart';
 
 // 自分の洗濯ポスト取得管理用Provider
